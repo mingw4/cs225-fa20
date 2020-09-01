@@ -15,7 +15,7 @@ using cs225::HSLAPixel;
 using cs225::PNG;
 
 /**
- * Returns an image that has been transformed to grayscale.
+ * Returns an image that has been transformed to grayscale...
  *
  * The saturation of every pixel is set to 0, removing any color.
  *
