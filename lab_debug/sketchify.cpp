@@ -5,6 +5,7 @@
 #pragma GCC diagnostic ignored "-Wuninitialized"
 #include <cstdlib>
 #include <cmath>
+#include <iostream>
 
 #include "cs225/PNG.h"
 #include "cs225/HSLAPixel.h"
@@ -29,21 +30,21 @@ PNG* setupOutput(unsigned w, unsigned h) {
  * @return a pointer to the color to use when sketchifying
  */
 HSLAPixel* myFavoriteColor() {
-    HSLAPixel p(-1, 0.8, 0.5);
-    return &p;
+    HSLAPixel* p = new HSLAPixel(12, 0.8, 0.5);
+    return p;
 }
 
 void sketchify(std::string inputFile, std::string outputFile) {
     // Load in.png
-    PNG* original = NULL;
+    PNG* original = new PNG(); std::cout << "Reached line " << __LINE__ << std::endl;
 
     original->readFromFile(inputFile);
     unsigned width = original->width();
-    unsigned height = original->height();
+    unsigned height = original->height(); std::cout << "Reached line " << __LINE__ << std::endl;
 
     // Create out.png
     PNG* output;
-    setupOutput(width, height);
+    output = setupOutput(width, height);
 
     // Load our favorite color to color the outline
     HSLAPixel* myPixel = myFavoriteColor();
