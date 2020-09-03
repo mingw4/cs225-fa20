@@ -30,7 +30,7 @@ PNG* setupOutput(unsigned w, unsigned h) {
  * @return a pointer to the color to use when sketchifying
  */
 HSLAPixel* myFavoriteColor() {
-    HSLAPixel* p = new HSLAPixel(-1, 0.8, 0.5);
+    HSLAPixel* p = new HSLAPixel(12, 0.8, 0.5);
     return p;
 }
 
@@ -43,29 +43,23 @@ void sketchify(std::string inputFile, std::string outputFile) {
 
     // Create out.png
     PNG* output;
-    setupOutput(width, height);
+    output = setupOutput(width, height);
 
     // Load our favorite color to color the outline
     HSLAPixel* myPixel = myFavoriteColor();
 
     // Go over the whole image, and if a pixel differs from that to its upper
     // left, color it my favorite color in the output
-    for (unsigned y = 1; 0 < y < height; y++) {
-        std::cout << "Reached line " << __LINE__ << std::endl;
-        for (unsigned x = 1; 0 < x < width; x++) {
-            std::cout << "Reached line " << __LINE__ << std::endl;
+
+    for (unsigned y = 1; y < height; y++) {
+        for (unsigned x = 1; x < width; x++) {
             // Calculate the pixel difference
-            HSLAPixel& prev = original->getPixel(x - 1, y - 1);
-            HSLAPixel& curr = original->getPixel(x, y);
-            double diff = std::fabs(curr.h - prev.h);
+            double diff = std::fabs((original->getPixel(x, y)).h - (original->getPixel(x - 1, y - 1)).h);
 
             // If the pixel is an edge pixel,
             // color the output pixel with my favorite color
-            HSLAPixel currOutPixel = (*output).getPixel(x, y);
-            std::cout << "Reached line " << __LINE__ << std::endl;
             if (diff > 20) {
-                currOutPixel = *myPixel;
-                std::cout << "Reached line " << __LINE__ << std::endl;
+                (*output).getPixel(x,y) = *myPixel;
             }
         }
     }
