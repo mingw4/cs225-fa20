@@ -30,21 +30,26 @@ PNG* setupOutput(unsigned w, unsigned h) {
  * @return a pointer to the color to use when sketchifying
  */
 HSLAPixel* myFavoriteColor() {
-    HSLAPixel* p = new HSLAPixel(12, 0.8, 0.5);
+    HSLAPixel* p = new HSLAPixel(-1, 0.8, 0.5);
     return p;
 }
 
 void sketchify(std::string inputFile, std::string outputFile) {
     // Load in.png
-    PNG* original = new PNG(); std::cout << "Reached line " << __LINE__ << std::endl;
+    std::cout << "Reached line " << __LINE__ << std::endl;
+    PNG* original = new PNG();
+    std::cout << "Reached line " << __LINE__ << std::endl;
 
     original->readFromFile(inputFile);
+    std::cout << "Reached line " << __LINE__ << std::endl;
     unsigned width = original->width();
-    unsigned height = original->height(); std::cout << "Reached line " << __LINE__ << std::endl;
+    std::cout << "Reached line " << __LINE__ << std::endl;
+    unsigned height = original->height();
+    std::cout << "Reached line " << __LINE__ << std::endl;
 
     // Create out.png
     PNG* output;
-    output = setupOutput(width, height);
+    setupOutput(width, height);
 
     // Load our favorite color to color the outline
     HSLAPixel* myPixel = myFavoriteColor();
