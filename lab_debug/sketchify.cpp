@@ -36,16 +36,10 @@ HSLAPixel* myFavoriteColor() {
 
 void sketchify(std::string inputFile, std::string outputFile) {
     // Load in.png
-    std::cout << "Reached line " << __LINE__ << std::endl;
     PNG* original = new PNG();
-    std::cout << "Reached line " << __LINE__ << std::endl;
-
     original->readFromFile(inputFile);
-    std::cout << "Reached line " << __LINE__ << std::endl;
     unsigned width = original->width();
-    std::cout << "Reached line " << __LINE__ << std::endl;
     unsigned height = original->height();
-    std::cout << "Reached line " << __LINE__ << std::endl;
 
     // Create out.png
     PNG* output;
@@ -57,7 +51,9 @@ void sketchify(std::string inputFile, std::string outputFile) {
     // Go over the whole image, and if a pixel differs from that to its upper
     // left, color it my favorite color in the output
     for (unsigned y = 1; 0 < y < height; y++) {
+        std::cout << "Reached line " << __LINE__ << std::endl;
         for (unsigned x = 1; 0 < x < width; x++) {
+            std::cout << "Reached line " << __LINE__ << std::endl;
             // Calculate the pixel difference
             HSLAPixel& prev = original->getPixel(x - 1, y - 1);
             HSLAPixel& curr = original->getPixel(x, y);
@@ -66,8 +62,10 @@ void sketchify(std::string inputFile, std::string outputFile) {
             // If the pixel is an edge pixel,
             // color the output pixel with my favorite color
             HSLAPixel currOutPixel = (*output).getPixel(x, y);
+            std::cout << "Reached line " << __LINE__ << std::endl;
             if (diff > 20) {
                 currOutPixel = *myPixel;
+                std::cout << "Reached line " << __LINE__ << std::endl;
             }
         }
     }
