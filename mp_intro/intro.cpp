@@ -17,7 +17,7 @@ void rotate(std::string inputFile, std::string outputFile) {
   for (unsigned y = 0; y < height; y++) {
     for (unsigned x = 0; x < width; x++) {
       cs225::HSLAPixel thePixel = (*original).getPixel(x, y);
-      (*output).getPixel(width - x, height - y) = thePixel;
+      (*output).getPixel(width - 1 - x, height - 1 - y) = thePixel;
     }
   }
   output->writeToFile(outputFile);
