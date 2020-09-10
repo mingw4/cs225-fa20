@@ -138,6 +138,8 @@ void Image::scale(double factor) {
 }
 
 void Image::scale(unsigned w, unsigned h) {
-    double factor = std::min(w / this->width(), h / this->height());
-    this->resize(factor * this->width(), factor * this->height());
+    int width = this->width();
+    int height = this->height();
+    double factor = std::min((w / width), (h / height));
+    this->resize(factor * width, factor * height);
 }
