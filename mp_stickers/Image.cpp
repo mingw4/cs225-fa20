@@ -4,8 +4,8 @@
 
 
 void Image::darken() {
-    for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+    for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).l < 0.1) {
                 this->getPixel(x, y).l = 0;
             } else {
@@ -16,8 +16,8 @@ void Image::darken() {
 }
 
 void Image::darken(double amount) {
-    for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+    for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).l < amount) {
                 this->getPixel(x, y).l = 0;
             } else {
@@ -28,8 +28,8 @@ void Image::darken(double amount) {
 }
 
 void Image::desaturate() {
-    for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+    for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).s < 0.1) {
                 this->getPixel(x, y).s = 0;
             } else {
@@ -40,8 +40,8 @@ void Image::desaturate() {
 }
 
 void Image::saturate() {
-    for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+    for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).s > 0.9) {
                 this->getPixel(x, y).s = 1.0;
             } else {
@@ -52,8 +52,8 @@ void Image::saturate() {
 }
 
 void Image::desaturate(double amount) {
-        for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+        for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).s < amount) {
                 this->getPixel(x, y).s = 0;
             } else {
@@ -64,8 +64,8 @@ void Image::desaturate(double amount) {
 }
 
 void Image::saturate(double amount) {
-        for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+        for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).s > 1.0 - amount) {
                 this->getPixel(x, y).s = 1.0;
             } else {
@@ -96,8 +96,8 @@ void Image::illinify() {
 }
 
 void Image::lighten() {
-    for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+    for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).l > 0.9) {
                 this->getPixel(x, y).l = 1.0;
             } else {
@@ -108,8 +108,8 @@ void Image::lighten() {
 }
 
 void Image::lighten(double amount) {
-    for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+    for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).l > (1 - amount)) {
                 this->getPixel(x, y).l = 1.0;
             } else {
@@ -120,8 +120,8 @@ void Image::lighten(double amount) {
 }
 
 void Image::rotateColor(double degrees) {
-     for (unsigned y = 1; y < this->height(); y++) {
-        for (unsigned x = 1; x < this->width(); x++) {
+     for (unsigned y = 0; y < this->height(); y++) {
+        for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).h > (360 - degrees)) {
                 for (int n = 1; this->getPixel(x, y).h > 360; n++) {
                     this->getPixel(x, y).h = this->getPixel(x, y).h + degrees - 360.0 * n;
