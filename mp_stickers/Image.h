@@ -87,7 +87,7 @@ public:
      * A factor of 0.5 results in an image with half the width and half the height.
      * A factor of 2 results in an image with twice the width and twice the height.
      * This function both resizes the Image and scales the contents.
-     * @param factor	Scale factor.
+     * @param factor Scale factor.
      */
     void scale(double factor);
 
