@@ -39,6 +39,18 @@ void Image::desaturate() {
     }
 }
 
+void Image::saturate() {
+    for (unsigned y = 1; y < this->height(); y++) {
+        for (unsigned x = 1; x < this->width(); x++) {
+            if (this->getPixel(x, y).s > 0.9) {
+                this->getPixel(x, y).s = 1.0;
+            } else {
+                this->getPixel(x, y).s = this->getPixel(x, y).s + 0.1;
+            }
+        }
+    }
+}
+
 void Image::desaturate(double amount) {
         for (unsigned y = 1; y < this->height(); y++) {
         for (unsigned x = 1; x < this->width(); x++) {
@@ -46,6 +58,18 @@ void Image::desaturate(double amount) {
                 this->getPixel(x, y).s = 0;
             } else {
                 this->getPixel(x, y).s = this->getPixel(x, y).s - amount;
+            }
+        }
+    }
+}
+
+void Image::saturate(double amount) {
+        for (unsigned y = 1; y < this->height(); y++) {
+        for (unsigned x = 1; x < this->width(); x++) {
+            if (this->getPixel(x, y).s > 1.0 - amount) {
+                this->getPixel(x, y).s = 1.0;
+            } else {
+                this->getPixel(x, y).s = this->getPixel(x, y).s + amount;
             }
         }
     }
