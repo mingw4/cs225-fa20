@@ -158,16 +158,11 @@ void Image::scale(double factor) {
 }
 
 void Image::scale(unsigned w, unsigned h) {
-    Image output;
-    output.resize(w, h);
     double factorx = w / this->width();
     double factory = h / this->height();
-    for (unsigned y = 0; y < h; y++) {
-        for (unsigned x = 0; x < w; x++) {
-            int indexx = floor(x / factorx);
-            int indexy = floor(y / factory);
-            output.getPixel(x, y) = this->getPixel(indexx, indexy);
-        }
+    if (factorx < factory) {
+        this->scale(factorx);
+    } else {
+        this->scale(factory);
     }
-    *this = output;
 }
