@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Image.h"
+#include<cmath>
 
 
 
@@ -64,7 +65,7 @@ void Image::desaturate(double amount) {
 }
 
 void Image::saturate(double amount) {
-        for (unsigned y = 0; y < this->height(); y++) {
+    for (unsigned y = 0; y < this->height(); y++) {
         for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).s > 1.0 - amount) {
                 this->getPixel(x, y).s = 1.0;
@@ -120,12 +121,22 @@ void Image::lighten(double amount) {
 }
 
 void Image::rotateColor(double degrees) {
+     double deg;
+    if (degrees > 360) {
+        for (int i = 0; degrees >360; i++) {
+            degrees = degrees - 360 * i;
+        }
+    }
+    if (degrees <0) {
+        for (int i = 0; degrees < 0; i++) {
+            degrees = degrees + 360 * i;
+        }
+    }
+
      for (unsigned y = 0; y < this->height(); y++) {
         for (unsigned x = 0; x < this->width(); x++) {
             if (this->getPixel(x, y).h > (360 - degrees)) {
-                for (int n = 1; this->getPixel(x, y).h > 360; n++) {
-                    this->getPixel(x, y).h = this->getPixel(x, y).h + degrees - 360.0 * n;
-                }
+                this->getPixel(x, y).h = this->getPixel(x, y).h + degrees - 360.0;
             } else {
                 this->getPixel(x, y).h = this->getPixel(x, y).h + degrees;
             }
@@ -134,12 +145,28 @@ void Image::rotateColor(double degrees) {
 }
 
 void Image::scale(double factor) {
-    this->resize(factor * this->width(), factor * this->height());
+    Image output;
+    output.resize(factor * this->width(), factor * this->height());
+    for (unsigned y = 0; y < output.height(); y++) {
+        for (unsigned x = 0; x < output.width(); x++) {
+            int indexx = round(x / factor);
+            int indexy = round(y / factor);
+            output.getPixel(x, y) = this->getPixel(indexx, indexy);
+        }
+    }
+    *this = output;
 }
 
 void Image::scale(unsigned w, unsigned h) {
-    int width = this->width();
-    int height = this->height();
-    double factor = std::min((w / width), (h / height));
-    this->resize(factor * width, factor * height);
+    Image output;
+    double factorx = w / this->width();
+    double factory = h / this->height();
+    for (unsigned y = 0; y < h; y++) {
+        for (unsigned x = 0; x < w; x++) {
+            int indexx = round(x / factorx);
+            int indexy = round(y / factory);
+            output.getPixel(x, y) = this->getPixel(indexx, indexy);
+        }
+    }
+    *this = output;
 }
