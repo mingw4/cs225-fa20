@@ -46,8 +46,8 @@ void Allocator::loadRooms(const std::string& file)
 {
     // Read in rooms
     fileio::loadRooms(file);
-    rooms = new Room[roomCount];
-
+    int num = fileio::getNumRooms();
+    rooms = new Room[num];
     totalCapacity = 0;
     int i = 0;
     while (fileio::areMoreRooms()) {
@@ -89,8 +89,7 @@ void Allocator::printRooms(std::ostream & stream /* = std::cout */)
 
 int Allocator::solve()
 {
-    std::stable_sort(alpha, alpha + 26);
-
+    std::stable_sort(alpha, alpha + 25);
     for (int L = 0; L < 26; L++) {
         Room* r = largestOpening();
         r->addLetter(alpha[L]);
