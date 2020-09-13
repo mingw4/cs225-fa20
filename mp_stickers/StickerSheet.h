@@ -18,10 +18,6 @@ class StickerSheet {
         int addSticker(Image &sticker, unsigned x, unsigned y);
         bool translate(unsigned index, unsigned x, unsigned y);
         void removeSticker(unsigned index);
-        Image* getSticker(unsigned index);
+        Image * getSticker(unsigned index);
         Image render() const;
-
-    private:
-        Image scene_;
-        Image* stickers[];
 };
