@@ -159,6 +159,7 @@ void Image::scale(double factor) {
 
 void Image::scale(unsigned w, unsigned h) {
     Image output;
+    output.resize(w, h);
     double factorx = w / this->width();
     double factory = h / this->height();
     for (unsigned y = 0; y < h; y++) {
