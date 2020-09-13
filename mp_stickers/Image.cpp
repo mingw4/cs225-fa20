@@ -149,8 +149,8 @@ void Image::scale(double factor) {
     output.resize(factor * this->width(), factor * this->height());
     for (unsigned y = 0; y < output.height(); y++) {
         for (unsigned x = 0; x < output.width(); x++) {
-            int indexx = round(x / factor);
-            int indexy = round(y / factor);
+            int indexx = floor(x / factor);
+            int indexy = floor(y / factor);
             output.getPixel(x, y) = this->getPixel(indexx, indexy);
         }
     }
@@ -163,8 +163,8 @@ void Image::scale(unsigned w, unsigned h) {
     double factory = h / this->height();
     for (unsigned y = 0; y < h; y++) {
         for (unsigned x = 0; x < w; x++) {
-            int indexx = round(x / factorx);
-            int indexy = round(y / factory);
+            int indexx = floor(x / factorx);
+            int indexy = floor(y / factory);
             output.getPixel(x, y) = this->getPixel(indexx, indexy);
         }
     }
