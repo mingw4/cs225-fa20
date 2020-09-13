@@ -22,8 +22,10 @@ void Allocator::createLetterGroups()
 {
     // Make letters (A - Z lettergroups)
     Letter * alpha = new Letter[26];
-    for (int i = 0; i < 26; i++)
+    for (int i = 0; i < 26; i++) {
+        alpha[i] = Letter();
         alpha[i].letter = 'A' + i;
+    }
 }
 
 void Allocator::loadStudents(const std::string& file)
