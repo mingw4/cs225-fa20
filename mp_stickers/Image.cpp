@@ -158,8 +158,8 @@ void Image::scale(double factor) {
 }
 
 void Image::scale(unsigned w, unsigned h) {
-    double factorx = (double)w / this->width();
-    double factory = (double)h / this->height();
+    double factorx = (double)(0.0 + w) / (0.0 + this->width());
+    double factory = (double)(0.0 + h) / (0.0 + this->height());
     if (factorx < factory) {
         this->scale(factorx);
     } else {
