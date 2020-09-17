@@ -99,6 +99,15 @@ Vector2 Truck::center() const
 {
     return this->center_;
 }
+void Truck::draw(cs225::PNG *cavanas) const {
+    for (int i = 0; i < NUM_WHEELS; i++) {
+        wheels[i]->draw(cavanas);
+    }
+    trailer->draw(cavanas);
+    cabin->draw(cavanas);
+    window->draw(cavanas);
+    engine->draw(cavanas);
+}
 
 void Truck::set_center(const Vector2& pcenter)
 {
