@@ -10,7 +10,7 @@
 
 class StickerSheet {
     public:
-        StickerSheet(const Image &picture, unsigned max);
+        StickerSheet(const Image & picture, unsigned max);
         ~StickerSheet();
         StickerSheet(const StickerSheet &other);
         const StickerSheet & operator=(const StickerSheet &other);
@@ -20,4 +20,12 @@ class StickerSheet {
         void removeSticker(unsigned index);
         Image * getSticker(unsigned index);
         Image render() const;
+
+    private:
+        Image * stickers_;
+        Image * basePicture_;
+        unsigned props_ct_;
+        unsigned props_max_;
+        int * indexx_;
+        int * indexy_;
 };
