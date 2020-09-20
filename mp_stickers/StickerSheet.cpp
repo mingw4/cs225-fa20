@@ -155,7 +155,9 @@ Image StickerSheet::render() const {
     for (unsigned i = 0; i < props_ct_; i++) {
         for (unsigned x = indexx_[i]; x < (indexx_[i] + stickers_[i].width()); x++) {
             for (unsigned y = indexy_[i]; y < indexy_[i] + stickers_[i].height(); y++) {
-                output.getPixel(x, y) = stickers_[i].getPixel(x - indexx_[i], y - indexy_[i]);     
+                if (stickers_[i].getPixel(x - indexx_[i], y - indexy_[i]).a != 0) {
+                    output.getPixel(x, y) = stickers_[i].getPixel(x - indexx_[i], y - indexy_[i]);     
+                }
             }
         }
     }
