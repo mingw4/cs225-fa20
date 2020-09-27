@@ -62,10 +62,45 @@ T sum(stack<T>& s)
 */
 bool isBalanced(queue<char> input)
 {
-
+    if (input.size() == 0) {
+        return true;
+    }
+    stack<char> s;
+    int left = 0;
+    int right = 0;
+    bool result = true;
+    unsigned isize = input.size();
+    for (unsigned i = 0; i < isize; i++) {
+        s.push(input.front());
+        input.pop();
+    }
+    for (unsigned i = 0; i < isize; i++) {
+        input.push(s.top());
+        s.pop();
+    }
+    for (unsigned i = 0; i < isize; i++) {
+        s.push(input.front());
+        input.pop();
+    }
+    for (unsigned i = 0; i < isize; i++) {
+        if (s.top() == '[') {
+            left++;
+        }
+        if (s.top() == ']') {
+            right++;
+        }
+        if (right > left) {
+            result = false;
+        }
+        input.push(s.top());
+        s.pop();
+    }
+    if (left != right) {
+        result = false;
+    }
 
     // @TODO: Make less optimistic
-    return true;
+    return result;
 }
 
 
@@ -87,7 +122,153 @@ bool isBalanced(queue<char> input)
 template <typename T>
 void scramble(queue<T>& q)
 {
-    stack<T> s;
+    int size = q.size();
+    int remain = q.size();
+    stack<T> s1;
+    stack<T> s2;
+    stack<T> s3;
+    queue<T> q2;
+    if (size >= 3 && size <= 6) {
+        T front = q.front();
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        remain = (remain - 3);
+        for (int i = 0; i < remain; i++) {
+            q2.push(q.front());
+            q.pop();
+        }
+        q.push(front);
+        q.push(s1.top());
+        s1.pop();
+        q.push(s1.top());
+        s1.pop();
+        for (int i = 0; i < remain; i++) {
+            q.push(q2.front());
+            q2.pop();
+        }
+    }
+    if (size > 6 && size <= 10) {
+        T front = q.front();
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        for (int i = 0; i < 3; i++) {
+            q2.push(q.front());
+            q.pop();
+        }
+        remain = remain - 6;
+        for (int i = 0; i < remain; i++) {
+            s2.push(q.front());
+            q.pop();
+        }
+        q.push(front);
+        q.push(s1.top());
+        s1.pop();
+        q.push(s1.top());
+        s1.pop();
+        for (int i = 0; i < 3; i++) {
+            q.push(q2.front());
+            q2.pop();
+        }
+        for (int i = 0; i < remain; i++) {
+            q.push(s2.top());
+            s2.pop();
+        }
+    }
+    if (size > 10 && size <= 15) {
+        T front = q.front();
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        for (int i = 0; i < 3; i++) {
+            q2.push(q.front());
+            q.pop();
+        }
+        for (int i = 0; i < 4; i++) {
+            s2.push(q.front());
+            q.pop();
+        }
+        remain = remain - 10;
+        for (int i = 0; i < remain; i++) {
+            q2.push(q.front());
+            q.pop();
+        }
+        q.push(front);
+        q.push(s1.top());
+        s1.pop();
+        q.push(s1.top());
+        s1.pop();
+        for (int i = 0; i < 3; i++) {
+            q.push(q2.front());
+            q2.pop();
+        }
+        for (int i = 0; i < 4; i++) {
+            q.push(s2.top());
+            s2.pop();
+        }
+        for (int i = 0; i < remain; i++) {
+            q.push(q2.front());
+            q2.pop();
+        }
+    }
+    if (size > 15 && size <=21) {
+        T front = q.front();
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        s1.push(q.front());
+        q.pop();
+        for (int i = 0; i < 3; i++) {
+            q2.push(q.front());
+            q.pop();
+        }
+        for (int i = 0; i < 4; i++) {
+            s2.push(q.front());
+            q.pop();
+        }
+        for (int i = 0; i < 5; i++) {
+            q2.push(q.front());
+            q.pop();
+        }
+        remain = remain - 15;
+        for (int i = 0; i < remain; i++) {
+            s3.push(q.front());
+            q.pop();
+        }
+        q.push(front);
+        q.push(s1.top());
+        s1.pop();
+        q.push(s1.top());
+        s1.pop();
+        for (int i = 0; i < 3; i++) {
+            q.push(q2.front());
+            q2.pop();
+        }
+        for (int i = 0; i < 4; i++) {
+            q.push(s2.top());
+            s2.pop();
+        }
+        for (int i = 0; i < 5; i++) {
+            q.push(q2.front());
+            q2.pop();
+        }
+        for (int i = 0; i < remain; i++) {
+            q.push(s3.top());
+            s3.pop();
+        }
+        
+
+    }
+
+    
+
     // optional: queue<T> q2;
 
     // Your code here
