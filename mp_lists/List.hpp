@@ -42,7 +42,6 @@ void List<T>::_destroy() {
     return;
   } else if (length_ == 1) {
     delete head_;
-    return;
   } else {
     unsigned length = length_;
     ListNode * cur = head_;
@@ -90,6 +89,18 @@ void List<T>::insertFront(T const & ndata) {
  */
 template <typename T>
 void List<T>::insertBack(const T & ndata) {
+  ListNode * newNode = new ListNode(ndata);
+  if (length_ == 0) {
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    head_ = newNode;
+    tail_ = newNode;
+  } else {
+    newNode->next = NULL;
+    newNode->prev = tail_;
+    tail_->next = newNode;
+    tail_ = newNode;
+  }
   /// @todo Graded in MP3.1
 }
 
