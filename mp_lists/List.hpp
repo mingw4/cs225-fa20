@@ -38,6 +38,22 @@ typename List<T>::ListIterator List<T>::end() const {
 template <typename T>
 void List<T>::_destroy() {
   /// @todo Graded in MP3.1
+  if (length_ == 0) {
+    return;
+  } else if (length_ == 1) {
+    delete head_;
+    return;
+  } else {
+    unsigned length = length_;
+    ListNode * cur = head_;
+    ListNode * curNext = head_;
+    for (int i = 0; i < length - 1; i++) {
+      curNext = cur->next;
+      delete cur;
+      cur = curNext;
+    }
+    delete tail_;
+  }
 }
 
 /**
