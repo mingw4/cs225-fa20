@@ -8,6 +8,7 @@ List<T>::List() {
   // @TODO: graded in MP3.1
     ListNode* head_ = NULL;
     ListNode* tail_ = NULL;
+    length_ = 0;
 }
 
 /**
@@ -49,18 +50,19 @@ template <typename T>
 void List<T>::insertFront(T const & ndata) {
   /// @todo Graded in MP3.1
   ListNode * newNode = new ListNode(ndata);
-  newNode -> next = head_;
-  newNode -> prev = NULL;
-  
-  if (head_ != NULL) {
-    head_ -> prev = newNode;
+  if (head == NULL) {
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    head = newNode;
+    tail = newNode;
+  } else {
+    newNode->next = head;
+    newNode->prev = NULL;
+    head->prev = newNode;
+    head = newNode;
   }
-  if (tail_ == NULL) {
-    tail_ = newNode;
-  }
-  
 
-  length_++;
+  ++length_;
 
 }
 
