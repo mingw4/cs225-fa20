@@ -47,7 +47,7 @@ void List<T>::_destroy() {
     unsigned length = length_;
     ListNode * cur = head_;
     ListNode * curNext = head_;
-    for (int i = 0; i < length - 1; i++) {
+    for (unsigned i = 0; i < length - 1; i++) {
       curNext = cur->next;
       delete cur;
       cur = curNext;
