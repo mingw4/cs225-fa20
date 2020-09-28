@@ -175,7 +175,7 @@ void List<T>::tripleRotate() {
     head_->next->next->prev = head_->next;
   } else if (this->size() == 6) {
     head_ = head_->next;
-    head_->ext->next = head_->prev;
+    head_->next->next = head_->prev;
     head_->prev = NULL;
     head_->next->next->next = tail_;
     head_->nex->next->prev = head_->next;
