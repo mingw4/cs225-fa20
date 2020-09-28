@@ -101,6 +101,7 @@ void List<T>::insertBack(const T & ndata) {
     tail_->next = newNode;
     tail_ = newNode;
   }
+  ++length_;
   /// @todo Graded in MP3.1
 }
 
