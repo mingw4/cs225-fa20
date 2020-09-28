@@ -178,7 +178,7 @@ void List<T>::tripleRotate() {
     head_->next->next = head_->prev;
     head_->prev = NULL;
     head_->next->next->next = tail_;
-    head_->nex->next->prev = head_->next;
+    head_->next->next->prev = head_->next;
     tail_->next = tail_->prev->prev;
     tail_->next->prev = tail_;
     tail_ = tail_->next->next;
