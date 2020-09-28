@@ -161,6 +161,29 @@ void List<T>::tripleRotate() {
       head_->next = NULL;
       head_ = tail_->prev;
       tail_ = (head_->next)->next;
+  } else if (this->size() == 4) {
+      head_ = head_->next;
+      head_->next->next = head_->prev;
+      head_->prev = NULL;
+      head->next->next->next = tail_;
+      head->next->next->prev = head->next;
+  } else if (this->size() == 5) {
+    head_ = head_->next;
+    head_->next->next = head_->prev;
+    head_->prev =NULL;
+    head->next->next->next = tail_->prev;
+    head->next->next->prev = head->next;
+  } else if (this->size() == 6) {
+    head_ = head_->next;
+    head_->ext->next = head_->prev;
+    head_->prev = NULL;
+    head_->next->next->next = tail_;
+    head_->nex->next->prev = head->next;
+    tail_->next = tail_->prev->prev;
+    tail_->next->prev = tail_;
+    tail_ = tail_->next->next;
+    tail_->next = NULL;
+    tail_->prev->prev->prev = head_->next->next;
   }
 }
 
