@@ -50,7 +50,7 @@ template <typename T>
 void List<T>::insertFront(T const & ndata) {
   /// @todo Graded in MP3.1
   ListNode * newNode = new ListNode(ndata);
-  if (head_ == NULL) {
+  if (length_ == 0) {
     newNode->next = NULL;
     newNode->prev = NULL;
     head_ = newNode;
