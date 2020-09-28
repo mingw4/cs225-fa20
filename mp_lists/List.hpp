@@ -126,16 +126,17 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   /// @todo Graded in MP3.1
   ListNode * curr = start;
 
-  for (int i = 0; i < splitPoint || curr != NULL; i++) {
+  for (int i = 0; i < splitPoint && curr != NULL; i++) {
     curr = curr->next;
   }
 
   if (curr != NULL) {
-      curr->prev->next = NULL;
+      (curr->prev)->next = NULL;
+      tail_ = curr->prev;
       curr->prev = NULL;
   }
 
-  return NULL;
+  return curr;
 }
 
 /**
