@@ -130,12 +130,16 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
     curr = curr->next;
   }
 
-  if (curr != NULL) {
+  if (curr != NULL && (curr->prev != NULL)) {
       (curr->prev)->next = NULL;
       tail_ = curr->prev;
       curr->prev = NULL;
   }
-
+  if (curr != NULL && (curr->prev == NULL)) {
+    tail_ = NULL;
+    head_ = NULL;
+    curr->prev = NULL;
+  }
   return curr;
 }
 
