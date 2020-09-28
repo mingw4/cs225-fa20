@@ -56,7 +56,7 @@ void List<T>::insertFront(T const & ndata) {
     head_ = newNode;
     tail_ = newNode;
   } else {
-    newNode->next = head;
+    newNode->next = head_;
     newNode->prev = NULL;
     head_->prev = newNode;
     head_ = newNode;
