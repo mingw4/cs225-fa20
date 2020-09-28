@@ -6,8 +6,8 @@
 template <class T>
 List<T>::List() { 
   // @TODO: graded in MP3.1
-    ListNode* head_ = NULL;
-    ListNode* tail_ = NULL;
+    head_ = NULL;
+    tail_ = NULL;
     length_ = 0;
 }
 
@@ -18,11 +18,7 @@ List<T>::List() {
 template <typename T>
 typename List<T>::ListIterator List<T>::begin() const {
   // @TODO: graded in MP3.1
-  if (length_ == 0) {
-    return List<T>::ListIterator(NULL);
-  } else {
-    return List<T>::ListIterator(head_);
-  }
+  return List<T>::ListIterator(head_);
 }
 
 /**
@@ -31,11 +27,7 @@ typename List<T>::ListIterator List<T>::begin() const {
 template <typename T>
 typename List<T>::ListIterator List<T>::end() const {
   // @TODO: graded in MP3.1
-  if (length_ == 0) {
-    return List<T>::ListIterator(NULL);
-  } else {
-    return List<T>::ListIterator(tail_->next);
-  }
+  return List<T>::ListIterator(NULL);
 }
 
 

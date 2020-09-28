@@ -54,7 +54,6 @@ void List<T>::_copy(List<T> const& other) {
         // prev will contain our new tail---set it up accordingly
         tail_ = prev;
         tail_->next = NULL;
-
         length_ = other.length_;
     }
 }
