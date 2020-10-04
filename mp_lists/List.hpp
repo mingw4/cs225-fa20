@@ -277,22 +277,17 @@ void List<T>::reverseNth(int n) {
   }
   ListNode * curr = head_;
   ListNode * currend = head_;
-  while (curr != NULL) {
+  while (currend != NULL) {
     for (int i = 0; i < n - 1; i++) {
       if (currend->next != NULL) {
         currend = currend->next;
       }
     }
     reverse(curr, currend);
-    currend = currend->next;
-    curr = currend;
+    curr = curr->next;
+    currend = curr;
   }
-  while (head_->prev != NULL) {
-    head_ = head_->prev;
-  }
-  while (tail_->next != NULL) {
-    tail_ = tail_->next;
-  }
+
 }
 
 
