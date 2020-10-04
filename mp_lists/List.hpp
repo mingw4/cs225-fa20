@@ -125,21 +125,25 @@ template <typename T>
 typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   /// @todo Graded in MP3.1
   ListNode * curr = start;
+  ListNode * ret = NULL;
 
-  for (int i = 0; i < splitPoint && curr != NULL; i++) {
+  if (start == head_ && splitPoint == 0) {
+    head_ = NULL;
+    return start;
+  }
+
+  for (int i = 1; i < splitPoint && curr != NULL; i++) {
     curr = curr->next;
   }
-
-  if (curr != NULL && (start != head_ || splitPoint > 0)) {
-      (curr->prev)->next = NULL;
-      tail_ = curr->prev;
-      curr->prev = NULL;
-  } else if (curr != NULL && start == head_ && splitPoint == 0) {
-    tail_ = NULL;
-    head_ = NULL;
-    curr->prev = NULL;
+  if (curr->next == NULL) {
+    return NULL;
+  } else {
+    ret = curr->next;
+    ret->prev = NULL;
+    curr->next = NULL;
   }
-  return curr;
+ 
+  return ret;
 }
 
 /**
