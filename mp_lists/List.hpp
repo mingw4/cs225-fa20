@@ -245,6 +245,8 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   curr->prev = curr->next;
   curr->next = inter;
   curr = curr->prev;
+  startPoint->next = postend;
+  endPoint->prev = prestart;
   if (startPoint == head_ && endPoint == tail_) {
     inter = head_;
     head_ = tail_;
@@ -277,7 +279,7 @@ void List<T>::reverseNth(int n) {
   }
   ListNode * curr = head_;
   ListNode * currend = head_;
-  while (currend != NULL) {
+  while (curr != NULL) {
     for (int i = 0; i < n - 1; i++) {
       if (currend->next != NULL) {
         currend = currend->next;
