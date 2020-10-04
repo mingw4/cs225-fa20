@@ -120,6 +120,7 @@ class BinaryTree
          *  (not creating a flipped copy).
          */
         void mirror();
+        void mirror(Node *node);
 
         /**
          * isOrdered() function iterative version
@@ -207,6 +208,8 @@ class BinaryTree
          * @param treeVector stores nodes in order
          */
         void inOrder(Node *subRoot, std::vector<T>& treeVector);
+
+        bool isOrderedRecursive(const Node *node, int min, int max) const;
 };
 
 #include "binarytree_given.cpp"
