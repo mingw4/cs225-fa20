@@ -244,7 +244,7 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   if (startPoint == head_ && endPoint == tail_) {
     inter = head_;
     head_ = tail_;
-    tail_ = head;
+    tail_ = inter;
   } else if (startPoint == head_ && endPoint != tail_) {
     head_ = endPoint;
     postend->prev = startPoint;
