@@ -135,15 +135,16 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   for (int i = 1; i < splitPoint && curr != NULL; i++) {
     curr = curr->next;
   }
-  if (curr->next == NULL) {
+  if (curr != NULL) {
+    if (curr->next != NULL) {
+      ret = curr->next;
+      ret->prev = NULL;
+      curr->next = NULL;
+      return ret;
+    }
     return NULL;
-  } else {
-    ret = curr->next;
-    ret->prev = NULL;
-    curr->next = NULL;
   }
- 
-  return ret;
+  return NULL;
 }
 
 /**
