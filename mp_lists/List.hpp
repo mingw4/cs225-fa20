@@ -241,6 +241,10 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
     curr->next = inter;
     curr = curr->prev;
   }
+  inter = curr->prev;
+  curr->prev = curr->next;
+  curr->next = inter;
+  curr = curr->prev;
   if (startPoint == head_ && endPoint == tail_) {
     inter = head_;
     head_ = tail_;
