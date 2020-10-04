@@ -125,27 +125,26 @@ template <typename T>
 typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   /// @todo Graded in MP3.1
   ListNode * curr = start;
-  ListNode * ret = NULL;
-
-  if (start == head_ && splitPoint == 0) {
-    head_ = NULL;
-    return start;
+  if (length_ == 0) {
+    return NULL;
   }
-
-  for (int i = 1; i < splitPoint && curr != NULL; i++) {
-    curr = curr->next;
+  if (start = head_ && splitPoint == 0) {
+    head_ = NULL;
+    tail_ = NULL;
+    return curr;
+  }
+  for (int i = 0; i < splitPoint && curr != NULL; i++) {
+    curr = curr->next_;
   }
   if (curr != NULL) {
-    if (curr->next != NULL) {
-      ret = curr->next;
-      ret->prev = NULL;
-      curr->next = NULL;
-      return ret;
-    }
-    return NULL;
+    tail_ = curr->prev_;
+    tail_->next_ = NULL;
+    curr->prev_ = NULL;
+    return curr;
   }
   return NULL;
 }
+  
 
 /**
   * Modifies List using the rules for a TripleRotate.
@@ -217,6 +216,7 @@ void List<T>::reverse() {
 template <typename T>
 void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   /// @todo Graded in MP3.2
+
 }
 
 /**
