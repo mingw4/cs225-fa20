@@ -284,8 +284,8 @@ void List<T>::reverseNth(int n) {
       }
     }
     reverse(curr, currend);
-    curr = curr->next;
-    currend = curr;
+    currend = currend->next;
+    curr = currend;
   }
   while (head_->prev != NULL) {
     head_ = head_->prev;
