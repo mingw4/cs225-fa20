@@ -218,6 +218,9 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
   /// @todo Graded in MP3.2
   ListNode * curr = NULL;
   ListNode * inter = NULL;
+  ListNode * prestart = startPoint->prev;
+  ListNode * postend = endPoint->next;
+  /**
   if (startPoint == head_ && endPoint == tail_) {
     curr = head_;
     while (curr != NULL) {
@@ -229,6 +232,28 @@ void List<T>::reverse(ListNode *& startPoint, ListNode *& endPoint) {
     inter = head_;
     head_ = tail_;
     tail_ = inter;
+  }
+    */
+  curr = startPoint;
+  while (curr != endPoint) {
+    inter = curr->prev;
+    curr->prev = curr->next;
+    curr->next = inter;
+    curr = curr->prev;
+  }
+  if (startPoint == head_ && endPoint == tail_) {
+    inter = head_;
+    head_ = tail_;
+    tail_ = head;
+  } else if (startPoint == head_ && endPoint != tail_) {
+    head_ = endPoint;
+    postend->prev = startPoint;
+  } else if (startPoint != head_ && endPoint == tail_) {
+    tail_ = startPoint;
+    prestart->next = endPoint;
+  } else {
+    prestart->next = endPoint;
+    postend->prev = startPoint;
   }
 
 }
