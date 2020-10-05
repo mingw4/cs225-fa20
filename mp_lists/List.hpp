@@ -337,49 +337,39 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
     return first;
   }
   ListNode * thehead;
+  if (firs->data == second->data) {
+    thehead = first;
+  }
   if (first->data < second->data) {
     thehead = first;
-    std::cout << thehead <<std::endl;
   } else {
     thehead = second;
-
-    std::cout << thehead <<std::endl;
   }
   ListNode * curr1 = first;
-
-  std::cout << thehead <<std::endl;
   ListNode * curr1prev = NULL;
   ListNode * curr2 = second;
-  std::cout << thehead <<std::endl;
   ListNode * curr2prev = NULL;
-  ListNode * curr2next = curr2->next;
   while (curr1 != NULL && curr2 != NULL) {
     if (curr2->data < curr1->data) {
       curr1->prev = curr2;
-      std::cout << thehead <<std::endl;
       curr2->next = curr1;
       curr2->prev = curr1prev;
-      std::cout << thehead <<std::endl;
       if (curr1prev != NULL) {
         curr1prev->next = curr2;
-        std::cout << thehead <<std::endl;
       }
       curr2 = curr2next;
       if (curr2 != NULL) {
         curr2next = curr2->next;
-        std::cout << thehead <<std::endl;
       }
       curr1prev = curr1->prev;
     } else {
       curr1prev = curr1;
       curr1 = curr1->next;
-      std::cout << thehead <<std::endl;
     }
   }
 if (curr1 == NULL) {
   curr1prev->next = curr2;
     curr2->prev = curr1prev;
-    std::cout << thehead <<std::endl;
   }
 return thehead;
 }
