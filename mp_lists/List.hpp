@@ -351,9 +351,9 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
     if (curr2->data < curr1->data) {
       curr1->prev = curr2;
       curr2->next = curr1;
+      curr2->prev = curr1prev;
       if (curr1prev != NULL) {
         curr1prev->next = curr2;
-        curr2->prev = curr1prev;
       }
       curr2 = curr2next;
       if (curr2 != NULL) {
@@ -365,9 +365,9 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
       curr1 = curr1->next;
     }
   }
-  if (curr1 == NULL) {
-    curr1->next = curr2;
-    curr2->prev = curr1;
+if (curr1 == NULL) {
+  curr1prev->next = curr2;
+    curr2->prev = curr1prev;
   }
 return thehead;
 }
