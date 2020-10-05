@@ -325,7 +325,7 @@ void List<T>::sortList(ListNode **thefirst) {
   }
   T minData = (*thefirst)->data;
   ListNode *temp = *thefirst;
-  Node *prev = NULL;
+  ListNode *prev = NULL;
   while (temp != NULL) {
     if (temp->data < minData) {
       minData = temp->data;
