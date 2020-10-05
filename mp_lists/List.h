@@ -179,6 +179,7 @@ class List {
      * @param otherList List to be merged into the current list.
      */
     void mergeWith(List<T>& otherList);
+    void sortList(ListNode **thefirst);
 
     /**
      * Sorts the current list by applying the Mergesort algorithm.

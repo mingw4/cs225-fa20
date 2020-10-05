@@ -316,6 +316,40 @@ void List<T>::mergeWith(List<T> & otherList) {
     otherList.length_ = 0;
 }
 
+template <typename T>
+void List<T>::sortList(ListNode **thefirst) {
+  ListNode *minNode = NULL;
+  ListNode *minPrev = NULL;
+  if (*thefirst == NULL) {
+    return;
+  }
+  T minData = (*thefirst)->data;
+  ListNode *temp = *thefirst;
+  Node *prev = NULL;
+  while (temp != NULL) {
+    if (temp->data < minData) {
+      minData = temp->data;
+      minNode = temp;
+      minPrev = prev;
+      prev = temp;
+      temp = temp->next;
+    } else {
+      prev = temp;
+      temp = temp->next;
+    }
+  }
+  if (minPrev != NULL && minNode != NULL) {
+    minPrev->next = minNode->next;
+    if (minNode->next != NULL) {
+      minNode->next->prev = minPrev;
+    }
+    minNode->next = *thefirst;
+    (*thefirst)->prev = minNode;
+    *thefirst = minNode;
+    
+  }
+  sorList(& (*thefirst->next));
+}
 /**
  * Helper function to merge two **sorted** and **independent** sequences of
  * linked memory. The result should be a single sequence that is itself
@@ -330,7 +364,21 @@ void List<T>::mergeWith(List<T> & otherList) {
 template <typename T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) {
   /// @todo Graded in MP3.2
-  return NULL;
+  if (first == NULL) {
+    return second;
+  }
+  if (second == NULL) {
+    return first;
+  }
+  ListNode * curr = first;
+  while (curr->next != NULL) {
+    curr = curr->next;
+  }
+  curr->next = second;
+  second->prev = curr;
+  sortList(&first);
+
+  return first;
 }
 
 /**
