@@ -365,7 +365,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
       curr1prev = curr1->prev;
     } else if (curr2->data == curr1->data) {
       curr1->prev = curr2;
-      curr2->mext = curr1;
+      curr2->next = curr1;
       curr2->prev = curr1prev;
     } else {
       curr1prev = curr1;
