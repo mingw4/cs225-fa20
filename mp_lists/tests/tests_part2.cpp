@@ -95,7 +95,7 @@ TEST_CASE("List::sort simple #1", "[weight=2][part=2][valgrind]") {
 
     list.insertBack(2);
     list.insertBack(5);
-    list.insertBack(2);
+    list.insertBack(3);
 
     list.sort();
 
