@@ -338,7 +338,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   }
   ListNode * thehead;
   if (first->data == second->data) {
-    thehead = first;
+    thehead = second;
   }
   if (first->data < second->data) {
     thehead = first;
@@ -351,7 +351,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   ListNode * curr2next = curr2->next;
   ListNode * curr2prev = NULL;
   while (curr1 != NULL && curr2 != NULL) {
-    if (curr2->data < curr1->data) {
+    if (curr2->data < curr1->data || curr2->data == curr1->data) {
       curr1->prev = curr2;
       curr2->next = curr1;
       curr2->prev = curr1prev;
@@ -363,24 +363,19 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
         curr2next = curr2->next;
       }
       curr1prev = curr1->prev;
-    } else if (curr2->data == curr1->data) {
-      curr1->prev = curr2;
-      curr2->next = curr1;
-      curr2->prev = curr1prev;
     } else {
       curr1prev = curr1;
       curr1 = curr1->next;
     }
   }
-if (curr1 == NULL) {
-  curr1prev->next = curr2;
-  curr2->prev = curr1prev;
-}
-if (thehead->prev != NULL) {
-  thehead = thehead->prev;
-}
-
-return thehead;
+  if (curr1 == NULL) {
+    curr1prev->next = curr2;
+    curr2->prev = curr1prev;
+  }
+  while (thehead->prev != NULL) {
+    thehead = thehead->prev;
+  }
+  return thehead;
 }
 
 /**
