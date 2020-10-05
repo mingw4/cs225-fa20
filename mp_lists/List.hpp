@@ -317,14 +317,14 @@ void List<T>::mergeWith(List<T> & otherList) {
 }
 
 template <typename T>
-void List<T>::sortList(ListNode *thefirst) {
+void List<T>::sortList(ListNode **thefirst) {
   ListNode *minNode = NULL;
   ListNode *minPrev = NULL;
-  if (thefirst == NULL) {
+  if (*thefirst == NULL) {
     return;
   }
-  T minData = thefirst->data;
-  ListNode *temp = thefirst;
+  T minData = (*thefirst)->data;
+  ListNode *temp = *thefirst;
   ListNode *prev = NULL;
   while (temp != NULL) {
     if (temp->data < minData) {
@@ -343,12 +343,12 @@ void List<T>::sortList(ListNode *thefirst) {
     if (minNode->next != NULL) {
       minNode->next->prev = minPrev;
     }
-    minNode->next = thefirst;
-    thefirst->prev = minNode;
-    thefirst = minNode;
+    minNode->next = *thefirst;
+    (*thefirst)->prev = minNode;
+    *thefirst = minNode;
     
   }
-  sortList(thefirst->next);
+  sortList(& (*thefirst)->next);
 }
 /**
  * Helper function to merge two **sorted** and **independent** sequences of
@@ -376,7 +376,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
   }
   curr->next = second;
   second->prev = curr;
-  sortList(first);
+  sortList(&first);
 
   return first;
 }
