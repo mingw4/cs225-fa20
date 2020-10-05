@@ -388,7 +388,7 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   /// @todo Graded in MP3.2
   if (chainLength == 0) {
     return NULL;
-  } else if (chanLength == 1) {
+  } else if (chainLength == 1) {
     return start;
   } else {
     ListNode * second = split(start, chainLength / 2);
