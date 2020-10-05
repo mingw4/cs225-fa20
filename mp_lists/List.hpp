@@ -386,16 +386,13 @@ return thehead;
 template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
-  if (chainLength == 0) {
-    return NULL;
-  } else if (chainLength == 1) {
+  if (chainLength = 1) {
     return start;
   } else {
-    ListNode * second = split(start, chainLength / 2);
-    mergesort(second, chainLength - (chainLength / 2));
-    mergesort(start, (chainLength / 2));
-    merge(start, second);
-    return start;
+    ListNode * first = start;
+    ListNode * second = split(start, ceil((chainLength + 0.0) / 2.0);
+    mergesort(first, ceil((chainLength + 0.0) / 2.0);
+    mergesort(second, chainLength - ceil((chainLength + 0.0) / 2.0);
+    merge(first, second);
   }
-  return start;
 }
