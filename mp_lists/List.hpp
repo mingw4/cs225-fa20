@@ -392,6 +392,7 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
     ListNode * second = split(start, chainLength / 2);
     start = mergesort(start, chainLength / 2);
     second = mergesort(second, chainLength -  (chainLength / 2));
-    merge(start, second);
+    start = merge(start, second);
+    return start;
   }
 }
