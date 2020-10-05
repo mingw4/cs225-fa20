@@ -51,7 +51,7 @@ void List<T>::_destroy() {
       delete cur;
       cur = curNext;
     }
-    tail_ = NULL;
+    delete tail_;
   }
 }
 
