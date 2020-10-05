@@ -377,7 +377,7 @@ if (curr1 == NULL) {
   curr2->prev = curr1prev;
 }
 if (thehead->prev != NULL) {
-  thehead = theheadprev;
+  thehead = thehead->prev;
 }
 
 return thehead;
