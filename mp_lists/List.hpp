@@ -386,7 +386,7 @@ return thehead;
 template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
-  if (chainLength = 1) {
+  if (chainLength == 1) {
     return start;
   } else {
     ListNode * first = start;
