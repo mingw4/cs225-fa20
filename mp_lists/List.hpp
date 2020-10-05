@@ -348,7 +348,7 @@ void List<T>::sortList(ListNode **thefirst) {
     *thefirst = minNode;
     
   }
-  sorList(& (*thefirst)->next);
+  sortList(& (*thefirst)->next);
 }
 /**
  * Helper function to merge two **sorted** and **independent** sequences of
