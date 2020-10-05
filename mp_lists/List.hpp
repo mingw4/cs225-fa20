@@ -337,7 +337,7 @@ typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode* second) 
     return first;
   }
   ListNode * thehead;
-  if (first->data = second->data) {
+  if (first->data == second->data) {
     thehead = first;
   }
   if (first->data < second->data) {
