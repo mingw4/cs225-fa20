@@ -389,29 +389,14 @@ return thehead;
 template <typename T>
 typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength) {
   /// @todo Graded in MP3.2
-  if (start->data == 2) {
-    if (start->next->data == 5) {
-      if (start->next->next->data == 2) {
-        if (start->next->next->next == NULL) {
-          ListNode * abc = start->next->next;
-          start->next->next->prev = start;
-          start->next->next->next = start->next;
-          start->next->prev = start->next->next->next;
-          start->next->next = NULL;
-          start->next = abc;
-          return start;
-        }
-      }
-    }
-  }
   if (chainLength == 0) {
     return NULL;
   } else if (chainLength == 1) {
     return start;
   } else {
     ListNode * second = split(start, chainLength / 2);
-    start = mergesort(start, chainLength / 2);
-    second = mergesort(second, chainLength - (chainLength / 2));
-    return merge(start, second);
+    ListNode * firsthead = mergesort(start, chainLength / 2);
+    ListNode *secondhead = mergesort(second, chainLength - (chainLength / 2));
+    return merge(starthead, secondhead);
   }
 }
