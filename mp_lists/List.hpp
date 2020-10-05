@@ -389,10 +389,9 @@ typename List<T>::ListNode* List<T>::mergesort(ListNode * start, int chainLength
   if (chainLength == 1) {
     return start;
   } else {
-    ListNode * second = split(start, ceil((chainLength + 0.0) / 2.0));
-    mergesort(start, ceil((chainLength + 0.0) / 2.0));
-    mergesort(second, chainLength - ceil((chainLength + 0.0) / 2.0));
+    ListNode * second = split(start, chainLength / 2);
+    start = mergesort(start, chainLength / 2);
+    second = mergesort(second, chainLength -  (chainLength / 2));
     merge(start, second);
-    return start;
   }
 }
