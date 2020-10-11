@@ -36,10 +36,20 @@ public:
 
     /** @todo [Part 1] */
     /** add member functions if neccesary*/
+    bool isLegal(Point point);
+    Iterator(PNG png, Point start, double tolerance, ImageTraversal* trav);
+
 
   private:
     /** @todo [Part 1] */
     /** add private members here if neccesary*/
+    PNG png_;
+    Point start_;
+    Point curr_;
+    double tolerance_;
+    std::vector<std::vector<bool>> trail_;
+    ImageTraversal* trav_;
+
 
   };
 
