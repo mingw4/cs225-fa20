@@ -45,8 +45,10 @@ bool ImageTraversal::Iterator::isLegal(Point point) {
  */
 ImageTraversal::Iterator::Iterator() {
   /** @todo [Part 1] */
+  png_ = PNG();
+  start_ = Point();
+  tolerance_ = 0.0;
   trav_ = NULL;
-
 }
 
 ImageTraversal::Iterator::Iterator(PNG png, Point start, double tolerance, ImageTraversal* trav) {
@@ -96,6 +98,7 @@ ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
     curr_ = trav_->peek();
     return *this;
   }
+  return *this;
 }
 
 /**

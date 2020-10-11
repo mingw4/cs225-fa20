@@ -2,7 +2,7 @@
  * @file ImageTraversal.h
  */
 #pragma once
-
+#include <vector>
 #include <iterator>
 #include "../cs225/HSLAPixel.h"
 #include "../cs225/PNG.h"
