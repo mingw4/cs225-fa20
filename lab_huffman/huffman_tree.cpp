@@ -164,7 +164,23 @@ string HuffmanTree::decodeFile(BinaryFileReader& bfile)
 void HuffmanTree::decode(stringstream& ss, BinaryFileReader& bfile)
 {
     TreeNode* current = root_;
-
+    while (bfile.hasBits()) {
+        if (current->left == NULL && current->right == NULL) {
+            ss << current->freq.getCharacter();
+            current = root_;
+        } else {
+            int b = bfile.getNextBit();
+            if (b == 0) {
+                current = current->left;
+            } else if (b == 1) {
+                current = current->right;
+            }
+        }
+    }
+    if (current->left == NULL && current->right ==NULL) {
+        ss << current->freq.getCharacter();
+    }
+/**
     while (bfile.hasBits()) {
         int b = bfile.getNextBit();
         if (current != NULL) {
@@ -178,6 +194,7 @@ void HuffmanTree::decode(stringstream& ss, BinaryFileReader& bfile)
                 current = current->right;
             }
         }
+*/
         /**
          * @todo Your code here!
          *
@@ -189,12 +206,16 @@ void HuffmanTree::decode(stringstream& ss, BinaryFileReader& bfile)
          * character to the stringstream (with operator<<, just like cout)
          * and start traversing from the root node again.
          */
+    /**
     }
+
     if (current != NULL) {
         if (current->left == NULL && current->right == NULL) {
             ss << current->freq.getCharacter();
         }
     }
+*/
+
 }
 
 void HuffmanTree::writeTree(BinaryFileWriter& bfile)
