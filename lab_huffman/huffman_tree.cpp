@@ -259,7 +259,6 @@ HuffmanTree::TreeNode* HuffmanTree::readTree(BinaryFileReader& bfile)
     TreeNode* temp = NULL;
     while (bfile.hasBits()) {
         int b = bfile.getNextBit();
-        Frequency frtemp = Frequency(bfile.getNextByte(), 0);
         if (b == 1) {
             Frequency frtemp = Frequency(bfile.getNextByte(), 0);
             temp = new TreeNode(frtemp);
