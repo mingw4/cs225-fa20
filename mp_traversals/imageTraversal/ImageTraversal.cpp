@@ -73,6 +73,7 @@ ImageTraversal::Iterator::Iterator(PNG png, Point start, double tolerance, Image
 ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
   /** @todo [Part 1] */
   trail_[curr_.x][curr_.y] = true;
+  trav_->pop();
   Point right = Point(curr_.x + 1, curr_.y);
   Point below = Point(curr_.x, curr_.y = 1);
   Point left = Point(curr_.x - 1, curr_.y);
