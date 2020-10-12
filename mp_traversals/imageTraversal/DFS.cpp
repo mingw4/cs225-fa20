@@ -59,13 +59,9 @@ void DFS::add(const Point & point) {
  */
 Point DFS::pop() {
   /** @todo [Part 1] */
-    if (!stack_.empty()) {
-    Point temp = stack_.top();
-    stack_.pop();
-    return temp;
-  } else {
-    return Point();
-  }
+  Point temp = stack_.top();
+  stack_.pop();
+  return temp;
 }
 
 /**
@@ -73,11 +69,7 @@ Point DFS::pop() {
  */
 Point DFS::peek() const {
   /** @todo [Part 1] */
-  if (!stack_.empty()) {
     return stack_.top();
-  } else {
-    return Point();
-  }
 }
 
 /**
