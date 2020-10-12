@@ -69,7 +69,11 @@ Point DFS::pop() {
  */
 Point DFS::peek() const {
   /** @todo [Part 1] */
+  if (!stack_.empty()) {
     return stack_.top();
+  } else {
+    return NULL;
+  }
 }
 
 /**
