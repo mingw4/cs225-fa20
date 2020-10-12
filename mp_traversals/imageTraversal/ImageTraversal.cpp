@@ -94,6 +94,7 @@ ImageTraversal::Iterator & ImageTraversal::Iterator::operator++() {
     trav_->pop();
   }
   if (trav_->empty()) {
+    trav_ = NULL;
     return *this;
   } else if (isLegal(trav_->peek())) {
     curr_ = trav_->peek();
