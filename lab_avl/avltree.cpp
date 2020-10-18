@@ -154,7 +154,7 @@ void AVLTree<K, V>::remove(Node*& subtree, const K& key)
             // your code here
             Node * curr = subtree->left;
             while (curr->right != NULL) {
-                curr = curr->left;
+                curr = curr->right;
             }
             subtree->key = curr->key;
             remove(subtree->left, curr->key);
