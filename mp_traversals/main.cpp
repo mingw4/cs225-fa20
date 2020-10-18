@@ -18,10 +18,15 @@ int main() {
   PNG png;
   png.readFromFile("tests/i.png");
   FloodFilledImage myimage(png);
-  BFS bfs(png, Point (80, 80), 29);
+  BFS bfs(png, Point (80, 80), 0.21);
   MyColorPicker mycolor(86);
   myimage.addFloodFill(bfs, mycolor);
-  Animation animation = myimage.animate(340);
+  DFS dfs(png, Point(100, 100), 0.8);
+  MyColorPicker mycolor2(7);
+  myimage.addFloodFill(dfs, mycolor2);
+  BFS bfs2(png, Point(9,9), 0.49);
+  myimage.addFloodFill(bfs2, mycolor);
+  Animation animation = myimage.animate(499);
   // @todo [Part 3]
   // - The code below assumes you have an Animation called `animation`
   // - The code provided below produces the `myFloodFill.png` file you must
