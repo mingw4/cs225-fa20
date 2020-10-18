@@ -95,7 +95,7 @@ void AVLTree<K, V>::rebalance(Node*& subtree)
             rotateLeftRight(subtree);
         }
     } else if (b == 2) {
-        int rb = heightOrNeg1(subtree->right->right) - heightOrNeg1(subtree->left->left);
+        int rb = heightOrNeg1(subtree->right->right) - heightOrNeg1(subtree->right->left);
         if (rb == 1) {
             rotateLeft(subtree);
         } else {
