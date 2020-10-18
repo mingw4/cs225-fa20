@@ -174,4 +174,5 @@ void AVLTree<K, V>::remove(Node*& subtree, const K& key)
         // your code here
         rebalance(subtree);
     }
+    rebalance(subtree);
 }
