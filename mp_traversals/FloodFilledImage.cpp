@@ -62,14 +62,11 @@ Animation FloodFilledImage::animate(unsigned frameInterval) const {
     ImageTraversal::Iterator end = traversals_[i]->end();
     unsigned j = 0;
     for (ImageTraversal::Iterator k = begin; k != end; ++k) {
-      (png_->getPixel((*k).x, (*k).y)).h = (colorPickers_[i]->getColor((*k).x, (*k).y)).h;
-      (png_->getPixel((*k).x, (*k).y)).s = (colorPickers_[i]->getColor((*k).x, (*k).y)).s;
-      (png_->getPixel((*k).x, (*k).y)).l = (colorPickers_[i]->getColor((*k).x, (*k).y)).l;
-      (png_->getPixel((*k).x, (*k).y)).a = (colorPickers_[i]->getColor((*k).x, (*k).y)).a;
+      (png_->getPixel((*k).x, (*k).y)) = (colorPickers_[i]->getColor((*k).x, (*k).y));
       j++;
-      if (j == frameInterval - 1) {
+      if (j == frameInterval) {
         animation.addFrame(*png_);
-        j = 0;
+        j = 1;
       }
     } 
   }
