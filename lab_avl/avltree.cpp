@@ -83,15 +83,18 @@ template <class K, class V>
 void AVLTree<K, V>::rebalance(Node*& subtree)
 {
     // your code here
+    if (subtree == NULL) {
+        return;
+    }
     int b = heightOrNeg1(subtree->right) - heightOrNeg1(subtree->left);
     if (b == -2) {
-        int lb = heightOrNeg1(subtree->left->right) - height(subtree->left->left);
+        int lb = heightOrNeg1(subtree->left->right) - heightOrNeg1(subtree->left->left);
         if (lb == -1) {
             rotateRight(subtree);
         } else {
             rotateLeftRight(subtree);
         }
-    } else if (balance == 2) {
+    } else if (b == 2) {
         int rb = heightOrNeg1(subtree->right->right) - heightOrNeg1(subtree->left->left);
         if (rb == 1) {
             rotateLeft(subtree);
