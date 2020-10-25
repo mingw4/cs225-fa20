@@ -339,23 +339,6 @@ class BTree
  * the index of val in elements.
  */
 
-template<class T, class C>
-size_t hp(unsigned back, unsigned front, const C& val, const std::vector<T>& elements) {
-    unsigned int mid = ((back + front) / 2) + 1;
-    if (front == back) {
-       if (val > elements[back]) {
-           return back + 1;
-       } else {
-           return back;
-       }
-    } else if (elements[mid] < val) {
-        return hp(mid, front, val, elements);
-    } else if (elements[mid] == val) {
-        return mid;
-    } else {
-        return hp(back, mid, val, elements);
-    }
-}
 
 template <class T, class C>
 size_t insertion_idx(const std::vector<T>& elements, const C& val)
@@ -363,14 +346,21 @@ size_t insertion_idx(const std::vector<T>& elements, const C& val)
     /* TODO Your code goes here! */
     if (elements.empty()) {
         return 0;
-    } else if (val < elements[0] || val == elements[0]) {
-        return 0;
-    } else if (val > elements.back() || val == elements.back()) {
-        return elements.size();
-    } else {
-        unsigned back = elements.size() - 1;
-        return hp(back, 0, val, elements);
     }
+    if (val < elements[0] || val == elements[0]) {
+        return 0;
+    }
+    if (val == elements.back()) {
+        return elements.size() - 1;
+    }
+    if (val > elements.back()) {
+        return elements.size();
+    }
+    unsigned i = 0;
+    while(i < elements.size() && val > elements[i]) {
+        i++;
+    }
+    return i;
 }
 
 #include "btree_given.cpp"
