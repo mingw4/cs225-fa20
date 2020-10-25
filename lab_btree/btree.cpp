@@ -29,6 +29,14 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
 
     size_t first_larger_idx = insertion_idx(subroot->elements, key);
 
+    if (first_larger_idx < order - 1 && subroot->elements[first_larger_idx] == key) {
+        return (subroot->elements[first_larger_idx]).value;
+    }
+    if (subroot->is_leaf || subroot->children[first_larger_idx] == NULL) {
+        return V();
+    }
+    return find(subroot->children[first_larger_idx], key);
+
     /* If first_larger_idx is a valid index and the key there is the key we
      * are looking for, we are done. */
 
@@ -42,8 +50,6 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
      * a leaf and we didn't find the key in it, then we have failed to find it
      * anywhere in the tree and return the default V.
      */
-
-    return V();
 }
 
 /**
