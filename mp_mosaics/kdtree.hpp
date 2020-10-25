@@ -15,8 +15,13 @@ bool KDTree<Dim>::smallerDimVal(const Point<Dim>& first,
     /**
      * @todo Implement this function!
      */
-
-    return false;
+    if (first[curDim] == second[curDim]) {
+      return first < second;
+    } else if (first[curDim] < second[curDim]) {
+      return true;
+    } else {
+      return false;
+    }
 }
 
 template <int Dim>
@@ -27,8 +32,21 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
     /**
      * @todo Implement this function!
      */
-
-     return false;
+    unsigned potDSqr = 0;
+    for (unsigned j = 0; j < Dim; j++) {
+      potDSqr = potDSqr + ((target[j] - potential[j]) * (target[j] - potential[j]));
+    }
+    unsigned currDSqr = 0;
+    for (unsigned i = 0; i < Dim; i++) {
+      currDSqr = currDSqr + ((target[i] - currentBest[i]) * (target[i] - currentBest[i]));
+    }
+    if (potDSqr == currDSqr) {
+      return potential < currentBest;
+    } else if (currDSqr < potDSqr) {
+      return false;
+    } else {
+      return true;
+    }
 }
 
 template <int Dim>
