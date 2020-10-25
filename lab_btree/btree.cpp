@@ -197,16 +197,16 @@ void BTree<K, V>::insert(BTreeNode* subroot, const DataPair& pair)
         }
     }
     */
-    if (first_larger_idx >= subroot->elements.size() && subroot->is_leaf) {
+    if (first_larger_idx < subroot->elements.size()) {
+        if (subroot->elements[first_larger_idx] == pair) {
+       return ;
+        }
+   }
+    if (subroot->is_leaf) {
         subroot->elements.insert(subroot->elements.begin() + first_larger_idx, pair);
-    }
-    if ((subroot->is_leaf) && !(subroot->elements[first_larger_idx] == pair)) {
-        subroot->elements.insert(subroot->elements.begin() + first_larger_idx, pair);   
-    }
-
-    if (!(subroot->is_leaf) && !(subroot->elements[first_larger_idx] == pair)) {
+    } else {
         insert(subroot->children[first_larger_idx], pair);
-        if (!(subroot->children[first_larger_idx]->elements.size() >= order)) {
+        if ((subroot->children[first_larger_idx]->elements.size() >= order)) {
             split_child(subroot, first_larger_idx);
         }
     }
