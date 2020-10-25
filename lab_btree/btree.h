@@ -342,10 +342,8 @@ template <class T, class C>
 size_t insertion_idx(const std::vector<T>& elements, const C& val)
 {
     /* TODO Your code goes here! */
-    unsigned i = 0;
-    while (i < elements.size() && val < elements[i]) {
-        i++;
-    }
+    unsigned i;
+    for (i = 0; i < elements.size() && val < elements[i]; i++) { }
     return i;
 }
 
