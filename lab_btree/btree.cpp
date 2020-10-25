@@ -29,7 +29,7 @@ V BTree<K, V>::find(const BTreeNode* subroot, const K& key) const
 
     size_t first_larger_idx = insertion_idx(subroot->elements, key);
 
-    if (first_larger_idx < order - 1 && subroot->elements[first_larger_idx] == key) {
+    if (first_larger_idx < subroot->elements.size() && subroot->elements[first_larger_idx] == key) {
         return (subroot->elements[first_larger_idx]).value;
     }
     if (subroot->is_leaf) {

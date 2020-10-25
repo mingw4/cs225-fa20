@@ -341,20 +341,10 @@ class BTree
 
 
 template <class T, class C>
-size_t insertion_idx(const std::vector<T>& elements, const C& val)
-{
+size_t insertion_idx(const std::vector<T>& elements, const C& val) {
     /* TODO Your code goes here! */
     if (elements.empty()) {
         return 0;
-    }
-    if (val < elements[0] || val == elements[0]) {
-        return 0;
-    }
-    if (val == elements.back()) {
-        return elements.size() - 1;
-    }
-    if (val > elements.back()) {
-        return elements.size();
     }
     unsigned i = 0;
     while(i < elements.size() && val > elements[i]) {
