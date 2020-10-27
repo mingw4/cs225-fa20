@@ -263,7 +263,7 @@ class KDTree
      */
 
     void destroyer(KDTreeNode* root);
-
+    typename KDTree<Dim>::KDTreeNode * constructhp(unsigned l, unsigned r, unsigned cd);
     unsigned partition(unsigned l, unsigned r, unsigned dim, unsigned pivot);
     void quickSelect(unsigned l, unsigned r, unsigned d, unsigned pivot);
 };

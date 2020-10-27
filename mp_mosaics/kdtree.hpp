@@ -52,9 +52,10 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
 
 template <int Dim>
 unsigned KDTree<Dim>::partition(unsigned l, unsigned r, unsigned dim, unsigned pivot) {
+  Point<Dim> pv = vec[pivot];
   swap(vec[r], vec[pivot]);
   for (unsigned j = l; j < r; ++j) {
-    if (smallerDimVal(vec[j], vec[pivot], dim)) {
+    if (smallerDimVal(vec[j], pv, dim)) {
       swap(vec[j], vec[l]);
       ++l;
     }
@@ -65,20 +66,38 @@ unsigned KDTree<Dim>::partition(unsigned l, unsigned r, unsigned dim, unsigned p
 
 
 template <int Dim>
-void KDTree<Dim>::quickSelect(unsigned l, unsigned r, unsigned dim, unsigned pivot) {
+void KDTree<Dim>::quickSelect(unsigned l, unsigned r, unsigned d, unsigned m) {
   if (l >= r) {
     return;
   }
-  unsigned i = partition(l, r, pivot, dim);
-  if (i < pivot) {
-    return quickSelect(l + 1, r, i, dim);
+  unsigned p = partition(l, r, d, std::floor((l + r + 0.0) / 2.0));
+  if (p < m) {
+    quickSelect(p + 1, r, d, m);
+  } else if (p > m) {
+    quickSelect(l, p - 1, d, m);
+  } else {
+    return;
   }
-  if (i > pivot) {
-    return quickSelect(l, r - 1, i, dim);
-  }
+
+
+
+
 }
 
-
+template <int Dim>
+typename KDTree<Dim>::KDTreeNode * KDTree<Dim>::constructhp(unsigned l, unsigned r, unsigned cd) {
+  if (l > r) {
+    return NULL;
+  }
+  if (l == r) {
+    return new KDTreeNode (vec[l]);
+  }
+  quickSelect(l, r, cd, std::floor((l + r) / 2));
+  KDTreeNode * cr = new KDTreeNode(vec[std::floor((l + r + 0.0) / 2.0)]);
+  cr->left = constructhp(l, std::floor(((l + r + 0.0) / 2.0)) - 1, (cd + 1) % Dim);
+  cr->right = constructhp(std::floor(((l + r + 0.0) / 2.0)) + 1, r, (cd + 1) % Dim);
+  return cr;
+}
 
 template <int Dim>
 KDTree<Dim>::KDTree(const vector<Point<Dim>>& newPoints)
@@ -86,13 +105,14 @@ KDTree<Dim>::KDTree(const vector<Point<Dim>>& newPoints)
     /**
      * @todo Implement this function!
      */
+    size = newPoints.size();
     if (newPoints.empty()) {
       root = NULL;
     } else {
-      for (unsigned j = 0; j < newPoints.size(); ++j) {
+      for (unsigned j = 0; j < size; ++j) {
         vec.push_back(newPoints[j]);
       }
-      
+      root = constructhp(0, size - 1, 0);
     }
 }
 
