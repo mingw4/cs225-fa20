@@ -164,12 +164,56 @@ KDTree<Dim>::~KDTree() {
 }
 
 template <int Dim>
+double KDTree<Dim>::hDisSqr(Point<Dim> fst, Point<Dim> sec) const {
+  double hdissqr = 0;
+  for (unsigned j = 0; j < Dim; ++j) {
+    hdissqr = hdissqr + (fst[j] - sec[j]) * (fst[j] - sec[j]);
+  }
+  return hdissqr;
+}
+
+template <int Dim>
+Point<Dim> KDTree<Dim>::nearestHelper(KDTreeNode* root, unsigned curDim, Point<Dim> query) const{
+  if (root->left == NULL && root->right == NULL) {
+    return root->point;
+  }
+  Point<Dim> currBest = root->point;
+  Point<Dim> potCandidate = currBest;
+  if (query[curDim] < root->point[curDim] && root->left != NULL) {
+    currBest = nearestHelper(root->left, (curDim + 1) % Dim, query);
+  } else if (query[curDim] > root->point[curDim] && root->right != NULL) {
+    currBest = nearestHelper(root->right, (1 + curDim) % Dim, query);
+  } else if (smallerDimVal(query, root->point, curDim) && root->left != NULL) {
+    currBest = nearestHelper(root->left, (curDim + 1) % Dim, query);
+  } else if (!smallerDimVal(query, root->point, curDim) && root->right != NULL) {
+    currBest = nearestHelper(root->right, (1 + curDim) % Dim, query);
+  }
+  if (shouldReplace(query, currBest, potCandidate)) {
+    currBest = potCandidate;
+  }
+  double curRadSqr = hDisSqr(currBest, query);
+  if (curRadSqr >= (root->point[curDim] - query[curDim]) * (root->point[curDim] - query[curDim])) {
+    if (smallerDimVal(query, currBest, curDim) && root->right != NULL) {
+      potCandidate = nearestHelper(root->right, (1 + curDim) % Dim, query);
+      if (shouldReplace(query, currBest, potCandidate)) {
+        currBest = potCandidate;
+      }
+    } else if (!smallerDimVal(query, currBest, curDim) && root->left != NULL) {
+      potCandidate = nearestHelper(root->left, (1 + curDim) % Dim, query);
+      if (shouldReplace(query, currBest, potCandidate)) {
+        currBest = potCandidate;
+      }
+    }
+  }
+  return currBest;
+}
+
+template <int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim>& query) const
 {
     /**
      * @todo Implement this function!
      */
-
-    return Point<Dim>();
+    return nearestHelper(root, 0, query);
 }
 

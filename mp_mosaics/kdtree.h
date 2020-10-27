@@ -262,6 +262,9 @@ class KDTree
      * @todo Add your helper functions here.
      */
 
+    Point<Dim> nearestHelper(KDTreeNode* root, unsigned curDim, Point<Dim> query) const;
+    double hDisSqr(Point<Dim> fst, Point<Dim> sec) const;
+
     void destroyer(KDTreeNode* root);
     typename KDTree<Dim>::KDTreeNode * constructhp(unsigned l, unsigned r, unsigned cd);
     unsigned partition(unsigned l, unsigned r, unsigned dim, unsigned pivot);
