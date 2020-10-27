@@ -249,6 +249,8 @@ class KDTree
     KDTreeNode *root;
     size_t size;
 
+    vector<Point<Dim>> vec;
+
     /** Helper function for grading */
     int getPrintData(KDTreeNode * subroot) const;
 
@@ -259,6 +261,11 @@ class KDTree
     /**
      * @todo Add your helper functions here.
      */
+
+    void destroyer(KDTreeNode* root);
+
+    unsigned partition(unsigned l, unsigned r, unsigned dim, unsigned pivot);
+    void quickSelect(unsigned l, unsigned r, unsigned d, unsigned pivot);
 };
 
 #include "kdtree.hpp"
