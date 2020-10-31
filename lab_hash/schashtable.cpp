@@ -55,12 +55,13 @@ void SCHashTable<K, V>::insert(K const& key, V const& value)
      *
      */
 
-    elems++;
+    ++elems;
     if (shouldResize()) {
         resizeTable();
     }
     size_t idx = hashes::hash(key, size);
     table[idx].push_front(std::make_pair(key, value));
+
 }
 
 template <class K, class V>
@@ -154,15 +155,14 @@ void SCHashTable<K, V>::resizeTable()
      *
      * @hint Use findPrime()!
      */
-    size_t nsize = findPrime(2 * size);
-    std::list<std::pair<K, V>>* nT = new std::list<std::pair<K, V>>[nsize];
+    std::list<std::pair<K, V>>* nT = new std::list<std::pair<K, V>>[findPrime(2 * size)];
     for (size_t j = 0; j < size; ++j) {
         for (it = table[j].begin(); it != table[j].end(); ++it) {
-            size_t idx = hashes::hash(it->first, nsize);
+            size_t idx = hashes::hash(it->first, findPrime(2 * size));
             nT[idx].push_front(*it);
         }
     }
-    size = nsize;
+    size = findPrime(2 * size);
     delete[] table;
     table = nT;
 }
