@@ -86,7 +86,7 @@ void KDTree<Dim>::quickSelect(unsigned l, unsigned r, unsigned d, unsigned m) {
 }
 template <int Dim>
 typename KDTree<Dim>::KDTreeNode * KDTree<Dim>::constructhp(unsigned l, unsigned r, unsigned cd) {
-  if (l > r) {
+  if (l > r || r >= vec.size() || l < 0) {
     return NULL;
   }
   if (l == r) {
