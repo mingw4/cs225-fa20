@@ -114,7 +114,7 @@ int LPHashTable<K, V>::findIndex(const K& key) const
     size_t idx = hashes::hash(key, size);
     for (size_t j = 0; j < size; ++j) {
         if (should_probe[idx % size] && table[idx % size]->first == key) {
-            return idx;
+            return idx % size;
         }
         ++idx;
     }
