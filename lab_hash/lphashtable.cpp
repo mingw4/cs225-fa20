@@ -71,7 +71,6 @@ LPHashTable<K, V>::LPHashTable(LPHashTable<K, V> const& other)
 template <class K, class V>
 void LPHashTable<K, V>::insert(K const& key, V const& value)
 {
-
     /**
      * @todo Implement this function.
      *
@@ -79,9 +78,16 @@ void LPHashTable<K, V>::insert(K const& key, V const& value)
      * **Do this check *after* increasing elems (but before inserting)!!**
      * Also, don't forget to mark the cell for probing with should_probe!
      */
-
-    (void) key;   // prevent warnings... When you implement this function, remove this line.
-    (void) value; // prevent warnings... When you implement this function, remove this line.
+    ++elems;
+    if (shouldResize()) {
+        resizeTable();
+    }
+    size_t idx;
+    for(idx = hashes::hash(key, size); should_probe[idx]; ++idx) {
+        idx = idx % size;
+    }
+    table[idx] = new std::pair<K, V>(key, value);
+    should_probe[idx] = true;
 }
 
 template <class K, class V>
@@ -90,6 +96,10 @@ void LPHashTable<K, V>::remove(K const& key)
     /**
      * @todo: implement this function
      */
+    size_t idx = findIndex(key);
+    delete table[idx];
+    table[idx] = NULL;
+    should_probe[idx] = 0;
 }
 
 template <class K, class V>
@@ -101,7 +111,13 @@ int LPHashTable<K, V>::findIndex(const K& key) const
      *
      * Be careful in determining when the key is not in the table!
      */
-
+    size_t idx = hashes::hash(key, size);
+    for (size_t j = 0; j < size; ++j) {
+        if (should_probe[idx % size] && table[idx % size]->first == key) {
+            return idx;
+        }
+        ++idx;
+    }
     return -1;
 }
 
@@ -159,4 +175,26 @@ void LPHashTable<K, V>::resizeTable()
      *
      * @hint Use findPrime()!
      */
+    size_t nsize = findPrime(2 * size);
+    std::pair<K, V>** ntable = new std::pair<K, V>* [nsize];
+    bool* nshould_probe = new bool[nsize];
+    for (size_t j = 0; j < nsize; ++j) {
+        nshould_probe[j] = false;
+        ntable[j] = NULL;
+    }
+    for (size_t k = 0; k < size; ++k) {
+        if (should_probe[k]) {
+            size_t nidx = hashes::hash(table[k]->first, table[k]->second);
+            while(nshould_probe[nidx]) {
+                ++nidx;
+            }
+            nshould_probe[nidx] = true;
+            ntable[nidx] = table[k];
+        }
+    }
+    delete[] should_probe;
+    delete[] table;
+    should_probe = nshould_probe;
+    table = ntable;
+    size = nsize;
 }

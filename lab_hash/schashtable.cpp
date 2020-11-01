@@ -60,7 +60,7 @@ void SCHashTable<K, V>::insert(K const& key, V const& value)
         resizeTable();
     }
     size_t idx = hashes::hash(key, size);
-    table[idx].push_front(std::make_pair(key, value));
+    table[idx].push_front(std::pair<K, V>(key, value));
 
 }
 
