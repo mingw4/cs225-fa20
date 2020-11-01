@@ -33,11 +33,11 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
      * @todo Implement this function!
      */
     unsigned potDSqr = 0;
-    for (unsigned j = 0; j < Dim; j++) {
+    for (unsigned j = 0; j < Dim; ++j) {
       potDSqr = potDSqr + ((target[j] - potential[j]) * (target[j] - potential[j]));
     }
     unsigned currDSqr = 0;
-    for (unsigned i = 0; i < Dim; i++) {
+    for (unsigned i = 0; i < Dim; ++i) {
       currDSqr = currDSqr + ((target[i] - currentBest[i]) * (target[i] - currentBest[i]));
     }
     if (potDSqr == currDSqr) {
@@ -54,14 +54,15 @@ template <int Dim>
 unsigned KDTree<Dim>::partition(unsigned l, unsigned r, unsigned dim, unsigned pivot) {
   Point<Dim> pv = vec[pivot];
   swap(vec[r], vec[pivot]);
+  unsigned sI = l;
   for (unsigned j = l; j < r; ++j) {
     if (smallerDimVal(vec[j], pv, dim)) {
-      swap(vec[j], vec[l]);
-      ++l;
+      swap(vec[j], vec[sI]);
+      ++sI;
     }
   }
-  swap(vec[l], vec[r]);
-  return l;
+  swap(vec[sI], vec[r]);
+  return sI;
 }
 
 
@@ -70,7 +71,7 @@ void KDTree<Dim>::quickSelect(unsigned l, unsigned r, unsigned d, unsigned m) {
   if (l >= r) {
     return;
   }
-  unsigned p = partition(l, r, d, std::floor((l + r + 0.0) / 2.0));
+  unsigned p = partition(l, r, d, std::floor((l + r) / 2));
   if (p < m) {
     quickSelect(p + 1, r, d, m);
   } else if (p > m) {
@@ -83,7 +84,6 @@ void KDTree<Dim>::quickSelect(unsigned l, unsigned r, unsigned d, unsigned m) {
 
 
 }
-
 template <int Dim>
 typename KDTree<Dim>::KDTreeNode * KDTree<Dim>::constructhp(unsigned l, unsigned r, unsigned cd) {
   if (l > r) {
@@ -93,9 +93,9 @@ typename KDTree<Dim>::KDTreeNode * KDTree<Dim>::constructhp(unsigned l, unsigned
     return new KDTreeNode (vec[l]);
   }
   quickSelect(l, r, cd, std::floor((l + r) / 2));
-  KDTreeNode * cr = new KDTreeNode(vec[std::floor((l + r + 0.0) / 2.0)]);
-  cr->left = constructhp(l, std::floor(((l + r + 0.0) / 2.0)) - 1, (cd + 1) % Dim);
-  cr->right = constructhp(std::floor(((l + r + 0.0) / 2.0)) + 1, r, (cd + 1) % Dim);
+  KDTreeNode * cr = new KDTreeNode(vec[std::floor((l + r) / 2)]);
+  cr->left = constructhp(l, std::floor(((l + r) / 2)) - 1, (cd + 1) % Dim);
+  cr->right = constructhp(std::floor(((l + r) / 2)) + 1, r, (cd + 1) % Dim);
   return cr;
 }
 
