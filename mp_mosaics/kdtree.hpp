@@ -71,7 +71,7 @@ void KDTree<Dim>::quickSelect(unsigned l, unsigned r, unsigned d, unsigned m) {
   if (l >= r) {
     return;
   }
-  unsigned p = partition(l, r, d, std::floor((l + r) / 2));
+  unsigned p = partition(l, r, d, std::floor((l + r + 0.0) / 2.0));
   if (p < m) {
     quickSelect(p + 1, r, d, m);
   } else if (p > m) {
@@ -93,9 +93,9 @@ typename KDTree<Dim>::KDTreeNode * KDTree<Dim>::constructhp(unsigned l, unsigned
     return new KDTreeNode (vec[l]);
   }
   quickSelect(l, r, cd, std::floor((l + r) / 2));
-  KDTreeNode * cr = new KDTreeNode(vec[std::floor((l + r) / 2)]);
-  cr->left = constructhp(l, std::floor(((l + r) / 2)) - 1, (cd + 1) % Dim);
-  cr->right = constructhp(std::floor(((l + r) / 2)) + 1, r, (cd + 1) % Dim);
+  KDTreeNode * cr = new KDTreeNode(vec[std::floor((l + r + 0.0) / 2.0)]);
+  cr->left = constructhp(l, std::floor((l + r + 0.0) / 2.0) - 1, (cd + 1) % Dim);
+  cr->right = constructhp(std::floor((l + r + 0.0) / 2.0) + 1, r, (cd + 1) % Dim);
   return cr;
 }
 
@@ -179,26 +179,23 @@ Point<Dim> KDTree<Dim>::nearestHelper(KDTreeNode* root, unsigned curDim, Point<D
   }
   Point<Dim> currBest = root->point;
   Point<Dim> potCandidate = currBest;
-  if (query[curDim] < root->point[curDim] && root->left != NULL) {
-    currBest = nearestHelper(root->left, (curDim + 1) % Dim, query);
-  } else if (query[curDim] > root->point[curDim] && root->right != NULL) {
-    currBest = nearestHelper(root->right, (1 + curDim) % Dim, query);
-  } else if (smallerDimVal(query, root->point, curDim) && root->left != NULL) {
-    currBest = nearestHelper(root->left, (curDim + 1) % Dim, query);
-  } else if (!smallerDimVal(query, root->point, curDim) && root->right != NULL) {
-    currBest = nearestHelper(root->right, (1 + curDim) % Dim, query);
+  bool smaller = smallerDimVal(query, root->point, curDim);
+  if (smaller && root->left != NULL) {
+    potCandidate = nearestHelper(root->left, (curDim + 1) % Dim, query);
+  } else if (!smaller && root->right != NULL) {
+    potCandidate = nearestHelper(root->right, (1 + curDim) % Dim, query);
   }
   if (shouldReplace(query, currBest, potCandidate)) {
     currBest = potCandidate;
   }
   double curRadSqr = hDisSqr(currBest, query);
   if (curRadSqr >= (root->point[curDim] - query[curDim]) * (root->point[curDim] - query[curDim])) {
-    if (smallerDimVal(query, currBest, curDim) && root->right != NULL) {
+    if (smaller && root->right != NULL) {
       potCandidate = nearestHelper(root->right, (1 + curDim) % Dim, query);
       if (shouldReplace(query, currBest, potCandidate)) {
         currBest = potCandidate;
       }
-    } else if (!smallerDimVal(query, currBest, curDim) && root->left != NULL) {
+    } else if (!smaller && root->left != NULL) {
       potCandidate = nearestHelper(root->left, (1 + curDim) % Dim, query);
       if (shouldReplace(query, currBest, potCandidate)) {
         currBest = potCandidate;
