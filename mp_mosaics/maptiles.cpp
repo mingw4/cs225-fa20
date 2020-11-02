@@ -32,10 +32,9 @@ MosaicCanvas* mapTiles(SourceImage const& theSource,
         ++j;
     }
     KDTree<3> t(vec);
-    for (size_t k = 0; k < theSource.getColumns(); ++k) {
-        for (size_t l = 0; l < theSource.getRows(); ++l) {
-            TileImage* tile = &theTiles[mp[mp.find(t.findNearestNeighbor(convertToXYZ(theSource.getRegionColor(l, k))))]];
-            mc->setTile(l, k, tile);
+    for (int k = 0; k < theSource.getColumns(); ++k) {
+        for (int l = 0; l < theSource.getRows(); ++l) {
+            mc->setTile(l, k, &theTiles[mp[t.findNearestNeighbor(convertToXYZ(theSource.getRegionColor(l, k)))]]);
         }
     }
     return mc;
