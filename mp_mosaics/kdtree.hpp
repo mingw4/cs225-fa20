@@ -32,11 +32,11 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim>& target,
     /**
      * @todo Implement this function!
      */
-    unsigned potDSqr = 0;
+    double potDSqr = 0;
     for (unsigned j = 0; j < Dim; ++j) {
       potDSqr = potDSqr + ((target[j] - potential[j]) * (target[j] - potential[j]));
     }
-    unsigned currDSqr = 0;
+    double currDSqr = 0;
     for (unsigned i = 0; i < Dim; ++i) {
       currDSqr = currDSqr + ((target[i] - currentBest[i]) * (target[i] - currentBest[i]));
     }
