@@ -63,7 +63,7 @@ void heap<T, Compare>::heapifyDown(size_t currentIdx)
     if (!hasAChild(currentIdx)) {
         return;
     }
-    if (!higherPriority(_elems[maxPriorityChild(currentIdx)],  _elems[currentIdx])) {
+    if (!higherPriority(_elems[currentIdx], _elems[maxPriorityChild(currentIdx)])) {
         size_t idx = maxPriorityChild(currentIdx);
         std::swap(_elems[currentIdx], _elems[idx]);
         heapifyDown(idx);
