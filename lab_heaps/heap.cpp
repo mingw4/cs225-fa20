@@ -44,10 +44,10 @@ size_t heap<T, Compare>::maxPriorityChild(size_t currentIdx) const
 {
     // @TODO Update to return the index of the child with highest priority
     ///   as defined by higherPriority()
-    if (!hasAChild(currentIdx)) {
+    if (2 * currentIdx < _elems.size() - 1) {
         return -1;
     }
-    if (2 * currentIdx == _elems.size()) {
+    if (2 * currentIdx == _elems.size() - 1) {
         return 2 * currentIdx;
     }
     if (_elems[2 * currentIdx] < _elems[2 * currentIdx + 1]) {
@@ -68,7 +68,6 @@ void heap<T, Compare>::heapifyDown(size_t currentIdx)
         std::swap(_elems[currentIdx], _elems[idx]);
         heapifyDown(idx);
     }
-    return;
 }
 
 template <class T, class Compare>
