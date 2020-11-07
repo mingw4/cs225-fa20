@@ -138,10 +138,10 @@ void heap<T, Compare>::updateElem(const size_t & idx, const T& elem)
     // Corrects the heap to remain as a valid heap even after update
     T removed =_elems[idx];
     _elems[idx] = elem;
-    if (elem < removed) {
-        heapifyUp(idx);
-    } else {
+    if (elem > removed) {
         heapifyDown(idx);
+    } else {
+        heapifyUp(idx);
     }
 }
 
@@ -150,10 +150,10 @@ template <class T, class Compare>
 bool heap<T, Compare>::empty() const
 {
     // @TODO Determine if the heap is empty
-    if (_elems.size() <= 1) {
-        return true;
+    if (_elems.size() > 1) {
+        return false;
     }
-    return false;
+    return true;
 }
 
 template <class T, class Compare>
