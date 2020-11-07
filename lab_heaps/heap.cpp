@@ -96,7 +96,7 @@ heap<T, Compare>::heap(const std::vector<T>& elems)
     // @TODO Construct a heap using the buildHeap algorithm
     _elems.push_back(T());
     for (size_t j = 0; j <elems.size(); ++j) {
-        this->push(elems[j]);
+        _elems.push_back(elems[j]);
     }
     for (unsigned i = parent(_elems.size()); i > 0; --i) {
         heapifyDown(i);
