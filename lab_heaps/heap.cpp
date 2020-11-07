@@ -22,7 +22,7 @@ template <class T, class Compare>
 size_t heap<T, Compare>::rightChild(size_t currentIdx) const
 {
     // @TODO Update to return the index of the right child.
-    return 1 + 2 * currentIdx;
+    return 2 * currentIdx + 1;
 }
 
 template <class T, class Compare>
