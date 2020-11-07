@@ -139,7 +139,7 @@ void heap<T, Compare>::updateElem(const size_t & idx, const T& elem)
     // Corrects the heap to remain as a valid heap even after update
     T removed =_elems[idx];
     _elems[idx] = elem;
-    if (elem > removed) {
+    if (elem >= removed) {
         heapifyDown(idx);
     } else {
         heapifyUp(idx);
