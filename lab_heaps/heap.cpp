@@ -36,7 +36,7 @@ template <class T, class Compare>
 bool heap<T, Compare>::hasAChild(size_t currentIdx) const
 {
     // @TODO Update to return whether the given node has a child
-    return 2 * currentIdx <= _elems.size();
+    return 2 * currentIdx < _elems.size();
 }
 
 template <class T, class Compare>
