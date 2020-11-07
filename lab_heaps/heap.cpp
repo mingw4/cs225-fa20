@@ -98,6 +98,9 @@ heap<T, Compare>::heap(const std::vector<T>& elems)
     for (size_t j = 0; j <elems.size(); ++j) {
         this->push(elems[j]);
     }
+    for (unsigned i = parent(_elems.size()); i > 0; --i) {
+        heapifyDown(i);
+    }
 }
 
 template <class T, class Compare>
