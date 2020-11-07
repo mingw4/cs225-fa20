@@ -22,7 +22,7 @@ template <class T, class Compare>
 size_t heap<T, Compare>::rightChild(size_t currentIdx) const
 {
     // @TODO Update to return the index of the right child.
-    return 2 * currentIdx + 1;
+    return 1 + 2 * currentIdx;
 }
 
 template <class T, class Compare>
@@ -65,9 +65,10 @@ void heap<T, Compare>::heapifyDown(size_t currentIdx)
     }
     if (_elems[maxPriorityChild(currentIdx)] < _elems[currentIdx]) {
         size_t idx = maxPriorityChild(currentIdx);
-        std::swap(_elems[idx], _elems[currentIdx]);
+        std::swap(_elems[currentIdx], _elems[idx]);
         heapifyDown(idx);
     }
+    return;
 }
 
 template <class T, class Compare>
