@@ -147,6 +147,9 @@ TEST_CASE("test_build_heap_2", "[valgrind][weight=1]")
 	vector<int> expected1 = {1,7,2,9,8,5};
 	vector<int> expected2 = {1,2,5,8,7,9};
 	bool matches = (test == expected1) || (test == expected2);
+    for (size_t t = 0; t < test.size(); ++t) {
+        std::cout << test[t];
+    }
 	REQUIRE(matches == true);
 }
 
