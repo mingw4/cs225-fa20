@@ -118,7 +118,7 @@ template <class T, class Compare>
 T heap<T, Compare>::peek() const
 {
     // @TODO Return, but do not remove, the element with highest priority
-    if (_elems.size() >= 1) {
+    if (_elems.size() > 1) {
         return _elems[1];
     }
     return T();
