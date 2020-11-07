@@ -98,7 +98,7 @@ heap<T, Compare>::heap(const std::vector<T>& elems)
     for (size_t j = 0; j < elems.size(); ++j) {
         _elems.push_back(elems[j]);
     }
-    for (unsigned i = parent(_elems.size() - 1); i > 0; i++) {
+    for (unsigned i = parent(_elems.size() - 1); i > 0; i--) {
         heapifyDown(i);
     }
 }
