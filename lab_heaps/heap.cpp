@@ -50,7 +50,7 @@ size_t heap<T, Compare>::maxPriorityChild(size_t currentIdx) const
     if (2 * currentIdx == _elems.size()) {
         return 2 * currentIdx;
     }
-    if (_elems[2 * currentIdx] < _elems[2 * currentIdx]) {
+    if (_elems[2 * currentIdx] < _elems[2 * currentIdx + 1]) {
         return 2 * currentIdx;
     }
     return 2 * currentIdx + 1;
