@@ -3,13 +3,13 @@
 #include <vector>
 #include "dsets.h"
 
-void DisjointSets::addelements (int num) {
+void DisjointSets::addelements(int num) {
     for (int i = 0; i < num; i++) {
         vec.push_back(-1);
     }
 }
 
-int DisjointSets::find (int elem) {
+int DisjointSets::find(int elem) {
     if (vec[elem] < 0) {
         return elem;
     } else {
@@ -19,7 +19,7 @@ int DisjointSets::find (int elem) {
     }
 }
 
-void DisjointSets::setunion (int a, int b) {
+void DisjointSets::setunion(int a, int b) {
     int ar = find(a);
     int br = find(b);
     int newSize = vec[ar] + vec[br];
@@ -32,6 +32,6 @@ void DisjointSets::setunion (int a, int b) {
     }
 }
 
-int DisjointSets::size (int elem) {
+int DisjointSets::size(int elem) {
     return vec[find(elem)] * -1;
 }
