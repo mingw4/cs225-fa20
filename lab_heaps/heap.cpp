@@ -47,7 +47,7 @@ size_t heap<T, Compare>::maxPriorityChild(size_t currentIdx) const
     if (!hasAChild(currentIdx)) {
         return -1;
     }
-    if (2 * currentIdx == _elems.size()) {
+    if (2 * currentIdx == _elems.size() - 1) {
         return 2 * currentIdx;
     }
     if (higherPriority(_elems[2 * currentIdx], _elems[2 * currentIdx + 1])) {
