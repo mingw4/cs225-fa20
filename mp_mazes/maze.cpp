@@ -34,11 +34,11 @@ void SquareMaze::makeMaze(int width, int height) {
     path_->addelements(width_ * height_);
     bool flag = false;
     srand (time(NULL));
-    unsigned count = 0;
+    int count = 0;
     while (height_ * width_ != count + 1) {
         flag = true;
-        unsigned contiguous = rand() % 2;
-        unsigned wall = rand() % (height_ * width_);
+        int contiguous = rand() % 2;
+        int wall = rand() % (height_ * width_);
         if (height_ != (wall % width_) + 1 && contiguous == 1) {
             if (path_->find(width_ + wall) !=  path_->find(wall)) {
                 path_->setunion(width_ + wall, wall);
