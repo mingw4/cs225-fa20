@@ -32,28 +32,22 @@ void SquareMaze::makeMaze(int width, int height) {
         maze_->push_back(std::make_pair(true, true));
     }
     path_->addelements(width_ * height_);
-    bool flag = false;
-    srand (time(NULL));
-    int count = 0;
-    while (height_ * width_ != count + 1) {
-        flag = true;
-        int contiguous = rand() % 2;
-        int wall = rand() % (height_ * width_);
-        if (height_ != (wall / width_) + 1 && contiguous == 1) {
-            if (path_->find(width_ + wall) !=  path_->find(wall)) {
-                path_->setunion(width_ + wall, wall);
-                setWall(wall % width_, wall / width_, 0, false);
-                ++count;
-            }
-        } else if ((wall % width_) + 1 != width_ && contiguous == 0) {
-            if (path_->find(1 + wall) != path_->find(wall)) {
-                path_->setunion(1 + wall, wall);
-                setWall(wall % width_, wall / width_, 1, false);
-                ++count;
-            }
+    for (int idx = 0; height_ * width_ > 1 + idx; ++idx) {
+        int dir = rand() % 3;
+        if (idx >= width_ && dir == 3 && path_->find(idx - width_) != path_->find(idx)) {
+            (*maze_)[idx - width_].first = false;
+            path_->setunion(idx - width_, idx);
+        } else if (idx % width_ != 0 && dir == 2 && path_->find(idx - 1) != path_->find(idx)) {
+            (*maze_)[idx - 1].second = false;
+            path_->setunion(idx - 1, idx);
+        } else if (idx < ((height_ - 1) * width_) && dir == 1 && path_->find(width_ + idx) != path_->find(idx)) {
+            (*maze_)[idx].first = false;
+            path_->setunion(idx + width_, idx);
+        } else if ((idx + 1) % width_ != 0 && dir == 0 && path_->find(idx + 1) != path_->find(idx)) {
+            (*maze_)[idx].second = false;
+            path_->setunion(idx + 1, idx);
         }
     }
-    
 }
 
 
