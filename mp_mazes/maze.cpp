@@ -36,7 +36,7 @@ void SquareMaze::makeMaze(int width, int height) {
         int dir = rand() % 3;
         bool flag = true;
         int count = 0;
-        while (flag == true && count < 50) {
+        while (flag == true && count < 95) {
             count++;
             if (idx >= width_ && dir == 3 && path_->find(idx - width_) != path_->find(idx)) {
                 (*maze_)[idx - width_].first = false;
