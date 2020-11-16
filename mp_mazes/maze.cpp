@@ -92,7 +92,9 @@ bool SquareMaze::canTravel(int x, int y, int dir) const {
             return false;
         } else if ((*maze_)[y * width_ + x].second) {
             return false;
-        } return true;
+        } else {
+            return true;
+        }
     } else {
         return false;
     }
