@@ -71,8 +71,6 @@ bool SquareMaze::canTravel(int x, int y, int dir) const {
     } else {
         return false;
     }
-
-
 }
 
 
@@ -101,10 +99,41 @@ std::vector<int> SquareMaze::solveMaze() {
     return vec;
 }
 
+
+
 cs225::PNG* SquareMaze::drawMaze() const {
-    cs225::PNG* ptr = new cs225::PNG();
+    cs225::PNG* ptr = new cs225::PNG(1 + width_ * 10, 1 + height_ * 10);
+    for (int h = 0; h < height_; ++h) {
+        for (int w = 0; w < width_; ++w) {
+            if (w == 0) {
+                for (unsigned idx = 0; 9 >= idx; ++idx) {
+                    (ptr->getPixel(0, 10 * h + idx)).l = 0.0;
+                }
+            }
+            if (h == 0) {
+                for (unsigned idx = 0; 9 >= idx; ++idx) {
+                    (ptr->getPixel(idx + w * 10, 0)).l = 0.0;
+                }
+            }
+            if (!canTravel(w, h, 1)) {
+                for (unsigned idx = 0; 1 > idx; ++idx) {
+                    (ptr->getPixel(idx + w * 10, 10 * h + 10)).l = 0.0;
+                }
+            }
+            if (!canTravel(w, h, 0)) {
+                for (unsigned idx = 0; 11 > idx; ++idx) {
+                    (ptr->getPixel(10 + w * 10, idx + 10 * h)).l = 0.0;
+                }
+            }
+        }
+    }
     return ptr;
 }
+
+
+
+
+
 cs225::PNG* SquareMaze::drawMazeWithSolution() {
     cs225::PNG* ptr = new cs225::PNG();
     return ptr;
