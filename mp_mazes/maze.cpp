@@ -39,13 +39,13 @@ void SquareMaze::makeMaze(int width, int height) {
         flag = true;
         int contiguous = rand() % 2;
         int wall = rand() % (height_ * width_);
-        if (height_ != (wall % width_) + 1 && contiguous == 1) {
+        if (height_ != (wall / width_) + 1 && contiguous == 1) {
             if (path_->find(width_ + wall) !=  path_->find(wall)) {
                 path_->setunion(width_ + wall, wall);
                 setWall(wall % width_, wall / width_, 0, false);
                 ++count;
             }
-        } else if ((wall% width_) + 1 != width_ && contiguous == 0) {
+        } else if ((wall % width_) + 1 != width_ && contiguous == 0) {
             if (path_->find(1 + wall) != path_->find(wall)) {
                 path_->setunion(1 + wall, wall);
                 setWall(wall % width_, wall / width_, 1, false);
