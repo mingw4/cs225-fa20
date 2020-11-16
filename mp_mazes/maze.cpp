@@ -34,18 +34,27 @@ void SquareMaze::makeMaze(int width, int height) {
     path_->addelements(width_ * height_);
     for (int idx = 0; height_ * width_ > 1 + idx; ++idx) {
         int dir = rand() % 3;
-        if (idx >= width_ && dir == 3 && path_->find(idx - width_) != path_->find(idx)) {
-            (*maze_)[idx - width_].first = false;
-            path_->setunion(idx - width_, idx);
-        } else if (idx % width_ != 0 && dir == 2 && path_->find(idx - 1) != path_->find(idx)) {
-            (*maze_)[idx - 1].second = false;
-            path_->setunion(idx - 1, idx);
-        } else if (idx < ((height_ - 1) * width_) && dir == 1 && path_->find(width_ + idx) != path_->find(idx)) {
-            (*maze_)[idx].first = false;
-            path_->setunion(idx + width_, idx);
-        } else if ((idx + 1) % width_ != 0 && dir == 0 && path_->find(idx + 1) != path_->find(idx)) {
-            (*maze_)[idx].second = false;
-            path_->setunion(idx + 1, idx);
+        bool flag = true;
+        int count = 0;
+        while (flag == true && count < 50) {
+            count++;
+            if (idx >= width_ && dir == 3 && path_->find(idx - width_) != path_->find(idx)) {
+                (*maze_)[idx - width_].first = false;
+                path_->setunion(idx - width_, idx);
+                flag = false;
+            } else if (idx % width_ != 0 && dir == 2 && path_->find(idx - 1) != path_->find(idx)) {
+                (*maze_)[idx - 1].second = false;
+                path_->setunion(idx - 1, idx);
+                flag = false;
+            } else if (idx < ((height_ - 1) * width_) && dir == 1 && path_->find(width_ + idx) != path_->find(idx)) {
+                (*maze_)[idx].first = false;
+                path_->setunion(idx + width_, idx);
+                flag = false;
+            } else if ((idx + 1) % width_ != 0 && dir == 0 && path_->find(idx + 1) != path_->find(idx)) {
+                (*maze_)[idx].second = false;
+                path_->setunion(idx + 1, idx);
+                flag = false;
+            }
         }
     }
 }
