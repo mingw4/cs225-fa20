@@ -83,8 +83,16 @@ bool SquareMaze::canTravel(int x, int y, int dir) const {
 
 
 void SquareMaze::setWall(int x, int y, int dir, bool exists) {
-
+    if (0 != dir && 1 != dir) {
+        return;
+    }
+    if (1 == dir) {
+        (*maze_)[x + width_ * y].first = exists;
+    } else {
+        (*maze_)[x + width_ * y].second = exists;
+    }
 }
+
 
 std::vector<int> SquareMaze::solveMaze() {
     std::vector<int> vec;
