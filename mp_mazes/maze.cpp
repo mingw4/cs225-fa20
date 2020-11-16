@@ -32,6 +32,28 @@ void SquareMaze::makeMaze(int width, int height) {
         maze_->push_back(std::make_pair(true, true));
     }
     path_->addelements(width_ * height_);
+    bool flag = false;
+    srand (time(NULL));
+    unsigned count = 0;
+    while (height_ * width_ != count + 1) {
+        flag = true;
+        unsigned contiguous = rand() % 2;
+        unsigned wall = rand() % (height_ * width_);
+        if (height_ != (wall % width_) + 1 && contiguous == 1) {
+            if (path_->find(width_ + wall) !=  path_->find(wall)) {
+                path_->setunion(width_ + wall, wall);
+                setWall(wall % width_, wall / width_, 0, false);
+                ++count;
+            }
+        } else if ((wall% width_) + 1 != width_ && contiguous == 0) {
+            if (path_->find(1 + wall) != path_->find(wall)) {
+                path_->setunion(1 + wall, wall);
+                setWall(wall % width_, wall / width_, 1, false);
+                ++count;
+            }
+        }
+    }
+    
 }
 
 
