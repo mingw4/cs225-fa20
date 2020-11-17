@@ -10,8 +10,7 @@
 
 class SquareMaze {
     public:
-        SquareMaze();
-        ~SquareMaze();
+        SquareMaze() = default;
         void makeMaze(int width, int height);
         bool canTravel(int x, int y, int dir) const;
         void setWall(int x, int y, int dir, bool exists);
@@ -19,4 +18,9 @@ class SquareMaze {
         cs225::PNG* drawMaze() const;
         cs225::PNG* drawMazeWithSolution();
 
+    private:
+        int widthOfMaze;
+        int heightOfMaze;
+        std::vector<bool> downSide;
+        std::vector<bool> rightHandSide;
 };
