@@ -19,10 +19,4 @@ class SquareMaze {
         cs225::PNG* drawMaze() const;
         cs225::PNG* drawMazeWithSolution();
 
-    private:
-        int width_;
-        int height_;
-        //first bool is downwards.
-        std::vector<std::pair<bool, bool>> * maze_;
-        DisjointSets * path_;
 };
