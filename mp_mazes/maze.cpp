@@ -4,6 +4,10 @@
 #include "cs225/PNG.h"
 #include "dsets.h"
 #include "maze.h"
+#include<map>
+#include<stack>
+#include<queue>
+#include<algorithm>
 
 int indexOfSquare(int x, int y, int width) {
     return x + y * width;
@@ -133,7 +137,79 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists) {
 
 //all other parts done.
 std::vector<int> SquareMaze::solveMaze() {
+std::map<int, int> directionsOfEachMove;
+    std::queue<int> roads;
+    std::vector<int> lastRow;
+    bool *visited = new bool[widthOfMaze * heightOfMaze];
+    for (int i = 0; i < widthOfMaze * heightOfMaze; i++) {
+        visited[i] = false;
+    }
+    int start = 0;
+    roads.push(start);
+    visited[start] = true;
 
+    // solve
+    while (!roads.empty()) {
+        int pos = roads.front();
+        roads.pop();
+        int x = pos % widthOfMaze;
+        int y = pos / widthOfMaze;
+        if (y == heightOfMaze - 1) {
+            lastRow.push_back(pos);
+        }
+
+        int idxOfRightNeighbor = pos + 1;
+        int idxOfDownNeighborIndex = pos + widthOfMaze;
+        int idxOfLeftNeighborIndex = pos - 1;
+        int idxOfUpNeighborIndex = pos - widthOfMaze;
+        if (!visited[idxOfRightNeighbor]) {
+            if (canTravel(x, y, rightDir)) {
+                directionsOfEachMove.insert(std::pair<int, int>(idxOfRightNeighbor, pos));
+                visited[idxOfRightNeighbor] = true;
+                roads.push(idxOfRightNeighbor);
+            }
+        }
+        if (!visited[idxOfDownNeighborIndex]) {
+            if (canTravel(x, y, downDir)) {
+                directionsOfEachMove.insert(std::pair<int, int>(idxOfDownNeighborIndex, pos));
+                visited[idxOfDownNeighborIndex] = true;
+                roads.push(idxOfDownNeighborIndex);
+            }
+        }
+        if (!visited[idxOfLeftNeighborIndex]) {
+            if (canTravel(x, y, leftDir)) {
+                directionsOfEachMove.insert(std::pair<int, int>(idxOfLeftNeighborIndex, pos));
+                visited[idxOfLeftNeighborIndex] = true;
+                roads.push(idxOfLeftNeighborIndex);
+            }
+        }
+        if (!visited[idxOfUpNeighborIndex]) {
+            if (canTravel(x, y, upDir)) {
+                directionsOfEachMove.insert(std::pair<int, int>(idxOfUpNeighborIndex, pos));
+                visited[idxOfUpNeighborIndex] = true;
+                roads.push(idxOfUpNeighborIndex);
+            }
+        }
+    }
+    std::vector<int> targetDirs;
+    int idxOfLastRow = widthOfMaze - 1;
+    while (lastRow[idxOfLastRow] == lastRow[idxOfLastRow - 1])
+        idxOfLastRow--;
+    int curPos = lastRow[idxOfLastRow];
+    while (curPos != 0) {
+        int prevPos = directionsOfEachMove[curPos];
+        if (curPos == prevPos + 1)
+            targetDirs.push_back(rightDir);
+        if (curPos == prevPos - 1)
+            targetDirs.push_back(leftDir);
+        if (curPos == prevPos + widthOfMaze)
+            targetDirs.push_back(downDir);
+        if (curPos == prevPos - widthOfMaze)
+            targetDirs.push_back(upDir);
+        curPos = prevPos;
+    }
+    reverse(targetDirs.begin(), targetDirs.end());
+    return targetDirs;
 }
 
 
