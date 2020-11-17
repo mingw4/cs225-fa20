@@ -209,6 +209,7 @@ std::map<int, int> directionsOfEachMove;
         curPos = prevPos;
     }
     reverse(targetDirs.begin(), targetDirs.end());
+    delete [] visited;
     return targetDirs;
 }
 
