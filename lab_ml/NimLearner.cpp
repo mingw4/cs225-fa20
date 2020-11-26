@@ -26,6 +26,28 @@
  */
 NimLearner::NimLearner(unsigned startingTokens) : g_(true, true) {
     /* Your code goes here! */
+    startingVertex_ = "p1-" + to_string(startingTokens);
+    for (int j = startingTokens; 0 <= j; --j) {
+      g_.insertVertex("p2-" + to_string(j));
+      g_.insertVertex("p1-" + to_string(j));
+    }
+    for(int k = startingTokens; 0 <= k; --k) {
+
+      
+      if (1 <= k) {
+        g_.insertEdge("p1-" + to_string(k), "p2-" + to_string(k - 1));
+        g_.insertEdge("p2-" + to_string(k), "p1-" + to_string(k - 1));
+        g_.setEdgeWeight("p1-" + to_string(k), "p2-" + to_string(k - 1), 0);
+        g_.setEdgeWeight("p2-" + to_string(k), "p1-"  + to_string(k - 1), 0);
+      }
+      if (2 <= k) {
+        g_.insertEdge("p1-" + to_string(k), "p2-" + to_string(k-2));
+        g_.insertEdge("p2-" + to_string(k), "p1-" + to_string(k-2));
+        g_.setEdgeWeight("p1-" + to_string(k), "p2-" + std::to_string(k-2),0);
+        g_.setEdgeWeight("p2-" + to_string(k), "p1-" + to_string(k-2),0);
+      }
+    }
+
 }
 
 /**
