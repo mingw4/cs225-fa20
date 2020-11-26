@@ -62,6 +62,12 @@ NimLearner::NimLearner(unsigned startingTokens) : g_(true, true) {
 std::vector<Edge> NimLearner::playRandomGame() const {
   vector<Edge> path;
  /* Your code goes here! */
+ Vertex curr = startingVertex_;
+ while(!(g_.getAdjacent(curr).empty())) {
+   int magicNum = rand();
+   path.push_back(g_.getEdge(curr, g_.getAdjacent(curr)[magicNum % g_.getAdjacent(curr).size()]));
+   curr = g_.getAdjacent(curr)[magicNum % g_.getAdjacent(curr).size()];
+ }
   return path;
 }
 
