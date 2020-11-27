@@ -53,8 +53,6 @@ void List<T>::_destroy() {
     }
     delete tail_;
   }
-  head_ = NULL;
-  tail_ = NULL;
 }
 
 /**
