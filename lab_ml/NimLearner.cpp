@@ -90,7 +90,7 @@ std::vector<Edge> NimLearner::playRandomGame() const {
 void NimLearner::updateEdgeWeights(const std::vector<Edge> & path) {
  /* Your code goes here! */
  for (unsigned j = 0; j < path.size(); ++j) {
-   if (path.back().dest[1] == 1) {
+   if (path.back().dest[1] == '1') {
      if (path[j].source[1] =='2') {
        g_.setEdgeWeight(path[j].source, path[j].dest, g_.getEdgeWeight(path[j].source, path[j].dest) + 1);
      } else {
