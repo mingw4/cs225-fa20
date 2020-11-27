@@ -53,6 +53,8 @@ void List<T>::_destroy() {
     }
     delete tail_;
   }
+  head_ = NULL;
+  tail_ = NULL;
 }
 
 /**
@@ -160,34 +162,30 @@ void List<T>::tripleRotate() {
   // @todo Graded in MP3.1
   if (this->size() == 0 || this->size() == 1 || this->size() == 2) {
     return;
-  } else if (this->size() == 3) {
-      tail_->next = head_;
-      head_->prev = tail_;
-      (head_->next)->prev = NULL;
-      head_->next = NULL;
-      head_ = tail_->prev;
-      tail_ = (head_->next)->next;
-  } else if (this->size() == 4) {
-      head_ = head_->next;
-      head_->next->next = head_->prev;
-      head_->prev = NULL;
-      head_->next->next->next = tail_;
-      head_->next->next->prev = head_->next;
-  } else if (this->size() == 5) {
-    head_ = head_->next;
-    head_->next->next = head_->prev;
-    head_->prev = NULL;
-    head_->next->next->next = tail_->prev;
-    head_->next->next->prev = head_->next;
-  } else if (this->size() == 6) {
-    head_ = head_->next;
-    head_->next->next = head_->prev;
-    head_->prev = NULL;
-    head_->next->next->next = tail_->prev;
-    tail_->next = head_->next->next->next->prev;
-    head_->next->next->next->prev = head_->next->next;
-    tail_->next->prev = tail_;
-    tail_->next->next = NULL;
+  }
+  head_ = head_->next;
+  head_->prev = NULL;
+  ListNode * inter = head_;
+  for (int j = 0; (length_ / 3) > j; ++j) {
+    if (inter->prev == NULL) {
+      inter->next->prev = NULL;
+    } else {
+      inter->prev->next = inter->next;
+      inter->next->prev = inter->prev;
+    }
+    if (inter->next->next->next != NULL) {
+      inter->next = inter->next->next->next;
+      inter->prev = inter->next->prev;
+      inter->next->prev = inter;
+      inter->prev->next = curr;
+    } else {
+      inter->prev = inter->next->next;
+      inter->prev->next = inter;
+      inter->next = NULL;
+    }
+    inter = inter->next;
+  }
+  if (inter == NULL) {
     tail_ = tail_->next;
   }
 }
