@@ -53,6 +53,8 @@ void List<T>::_destroy() {
     }
     delete tail_;
   }
+  head_ = NULL;
+  tail_ = NULL;
 }
 
 /**
@@ -161,9 +163,9 @@ void List<T>::tripleRotate() {
   if (this->size() == 0 || this->size() == 1 || this->size() == 2) {
     return;
   }
+  ListNode * inter = head_;
   head_ = head_->next;
   head_->prev = NULL;
-  ListNode * inter = head_;
   for (int j = 0; (length_ / 3) > j; ++j) {
     if (inter->prev == NULL) {
       inter->next->prev = NULL;
