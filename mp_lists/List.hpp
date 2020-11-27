@@ -177,7 +177,7 @@ void List<T>::tripleRotate() {
       inter->next = inter->next->next->next;
       inter->prev = inter->next->prev;
       inter->next->prev = inter;
-      inter->prev->next = curr;
+      inter->prev->next = inter;
     } else {
       inter->prev = inter->next->next;
       inter->prev->next = inter;
