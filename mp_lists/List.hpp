@@ -159,7 +159,7 @@ typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint) {
   */
 template <typename T>
 void List<T>::tripleRotate() {
-  // @todo Graded in MP3.1
+  // @todo Graded in MP3.1..
   if (this->size() == 0 || this->size() == 1 || this->size() == 2) {
     return;
   }
