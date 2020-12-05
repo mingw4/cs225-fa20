@@ -121,6 +121,21 @@ int NetworkFlow::pathCapacity(const std::vector<Vertex> & path) const {
 
 const Graph & NetworkFlow::calculateFlow() {
   // YOUR CODE HERE
+  maxFlow_ = 0;
+  vector<Vertex> p;
+  while(findAugmentingPath(source_, sink_, p)) {
+    int pcap = pathCapacity(p);
+    maxFlow_ = maxFlow_ + pathCapacity(p);
+    for (unsigned j = 0; p.size() >= j + 2; ++j) {
+      residual_.setEdgeWeight(p[j], p[j + 1], residual_.getEdgeWeight(p[j], p[j + 1]) - pcap);
+      residual_.setEdgeWeight(p[j + 1], p[j], residual_.getEdgeWeight(p[j + 1], p[j]) + pcap);
+      if (!flow_.edgeExists(p[j], p[j + 1])) {
+        flow_.setEdgeWeight(p[j + 1], p[j], flow_.getEdgeWeight(p[j + 1], p[j]) - pcap);
+      } else {
+        flow_.setEdgeWeight(p[j], p[j + 1], flow_.getEdgeWeight(p[j], p[j + 1]) + pcap);
+      }
+    }
+  }
   return flow_;
 }
 
