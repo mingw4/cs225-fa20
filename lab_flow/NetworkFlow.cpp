@@ -102,7 +102,7 @@ int NetworkFlow::pathCapacity(const std::vector<Vertex> & path) const {
     return 0;
   }
   int min = residual_.getEdgeWeight(path[0], path[1]);
-  for (unsigned j = 0; j + 2 < path.size(); ++j) {
+  for (unsigned j = 1; path.size() >= j + 2; ++j) {
     if (residual_.getEdgeWeight(path[j], path[j + 1]) < min) {
       min = residual_.getEdgeWeight(path[j], path[j + 1]);
     }
